@@ -16,8 +16,10 @@ void	ft_check_flag(t_flag *f)
 {
 	if (f->format[f->i] == '#' || f->format[f->i] == ' ' ||
 		f->format[f->i] == '0' || f->format[f->i] == '-' ||
-		f->format[f->i] == '+')
+		f->format[f->i] == '+' || f->format[f->i] == '*')
 	{
+		if (f->format[f->i] == '*')
+			f->wc[0] = 1;
 		if (f->format[f->i] == '#')
 			f->flag[2] = 1;
 		if (f->format[f->i] == '0')
@@ -59,6 +61,12 @@ void	ft_check_precision(t_flag *f)
 
 	if (f->format[f->i] == '.')
 	{
+		if (f->format[f->i + 1] == '*')
+		{
+			f->wc[1] = 1;
+			f->i += 2;
+			return ;
+		}
 		f->flag[13] = 1;
 		f->flag[0] = 0;
 		i = ++f->i;
@@ -109,14 +117,12 @@ int		ft_check(t_flag *f)
 		f->format[f->i] == ' ' || f->format[f->i] == 'h' ||
 		f->format[f->i] == 'l' || f->format[f->i] == 'j' ||
 		f->format[f->i] == 'z' || f->format[f->i] == '.' ||
-			ft_isdigit(f->format[f->i]))
+		ft_isdigit(f->format[f->i]) || f->format[f->i] == '*')
 	{
 		ft_check_flag(f);
 		ft_check_width(f);
 		ft_check_precision(f);
 		ft_check_modifier(f);
 	}
-	if (f->i == ft_strlen(f->format))
-		return (-1);
 	return (0);
 }

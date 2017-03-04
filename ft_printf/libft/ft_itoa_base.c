@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 23:30:53 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/17 07:08:35 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/02/27 16:46:58 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,20 @@ static int	ft_size_nbr(int *tab, char *s, int nb, int base)
 	return (i);
 }
 
+static char	*ft_special(int nb, int base)
+{
+	if (nb == 0)
+		return (ft_strdup("0"));
+	if ((nb == -2147483648 && base == 10) ||
+		(nb > 2147483647 && base == 10))
+		return (ft_strdup("-2147483648"));
+	if (nb == 2147483647 && base == 10)
+		return (ft_strdup("2147483647"));
+	if (nb == 2147483647 && base == 16)
+		return (ft_strdup("7fffffff"));
+	return (NULL);
+}
+
 char		*ft_itoa_base(int nb, int base)
 {
 	char	*itoa;
@@ -58,8 +72,8 @@ char		*ft_itoa_base(int nb, int base)
 
 	n = nb;
 	ft_init(s);
-	if (nb == 0)
-		return (ft_strdup("0"));
+	if ((itoa = ft_special(nb, base)) != NULL)
+		return (itoa);
 	i[0] = ft_size_nbr(tab, s, nb, base);
 	if (!(itoa = (char *)malloc(sizeof(char) * (i[0] + 1))))
 		return (NULL);

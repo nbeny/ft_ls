@@ -33,9 +33,9 @@ typedef struct	s_elem
 	nlink_t		st_nlink;
 	uid_t		st_uid;
 	gid_t		st_gid;
-	off_t		st_size;
-	quad_t		st_blocks;
 	dev_t		st_rdev;
+	off_t		st_size;
+	blkcnt_t	st_blocks;
 	struct s_elem	*next;
 }		t_elem;
 

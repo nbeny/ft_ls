@@ -3,12 +3,22 @@
 int		ft_ls(char *str)
 {
 	struct dirent	*d;
-	DIR		*dir;
+	struct stat		stat;
+	DIR				*dir;
 
-	if ((dir = opendir(str)) == NULL)
-		return (0);
-	while ((d = readdir(dir)))
+	dir = opendir(str);
+	if (dir == NULL)
+	{
+		printf("Error ! Unable to open directory.\n");
+		exit(1);
+	}
+	while ((d = readdir(dir)) != NULL)
+	{
 		printf("%s\n", d->d_name);
+	}
+	if (S_ISDIR(stat.st_mode))
+		ft_ls(d->d_name);
+	closedir(dir);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/16 14:57:18 by nbeny             #+#    #+#              #
-#    Updated: 2017/02/17 13:37:46 by nbeny            ###   ########.fr        #
+#    Updated: 2017/03/01 16:30:47 by nbeny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,14 +17,20 @@ SRC	=	src/ft_printf.c src/ft_check.c src/ft_dispatcher.c\
 		src/ft_handler_o.c src/ft_handler_u.c src/ft_handler_x.c src/ft_handler.c\
 		src/ft_flag_hhlld.c src/ft_flag_hhllo.c src/ft_flag_hhllu.c src/ft_flag_hhllx.c\
 		src/ft_flag_jzd.c src/ft_flag_jzo.c src/ft_flag_jzu.c src/ft_flag_jzx.c\
-		src/ft_flags_char.c src/ft_flags_int.c src/ft_precision.c
+		src/ft_flags_char.c src/ft_flags_int.c src/ft_precision.c src/ft_flags_int2.c\
+		src/ft_flags_int3.c src/ft_usefull.c src/ft_handler_undefined.c\
+		src/ft_flags_int4.c src/ft_handler_b.c src/ft_handler_t.c src/ft_handler_q.c\
+		src/ft_handler_n.c src/ft_handler_v.c
 
 OBJ	=	ft_printf.o ft_check.o ft_dispatcher.o\
 		ft_handler_c.o ft_handler_s.o ft_handler_p.o ft_handler_d.o\
 		ft_handler_o.o ft_handler_u.o ft_handler_x.o ft_handler.o\
 		ft_flag_hhlld.o ft_flag_hhllo.o ft_flag_hhllu.o ft_flag_hhllx.o\
 		ft_flag_jzd.o ft_flag_jzo.o ft_flag_jzu.o ft_flag_jzx.o\
-		ft_flags_char.o ft_flags_int.o ft_precision.o
+		ft_flags_char.o ft_flags_int.o ft_precision.o ft_flags_int2.o\
+		ft_flags_int3.o ft_usefull.o ft_handler_undefined.o\
+		ft_flags_int4.o ft_handler_b.o ft_handler_t.o ft_handler_q.o\
+		ft_handler_n.o ft_handler_v.o
 
 HDR	=	ft_printf.h
 
@@ -51,9 +57,9 @@ OBJ_LFT	=	ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o\
 		ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o\
 		ft_lstiter.o ft_lstmap.o\
 		ft_max.o ft_min.o ft_sort_integer_tab.o ft_sort_params.o\
-		ft_sqrt.o\
-		ft_putcstr.o ft_capitalizer.o ft_sign.o ft_rotcstring.o\
-		ft_putnstr.o
+		ft_sqrt.o ft_power.o\
+		ft_putcstr.o ft_capitalizer.o ft_rotcstring.o ft_putnstr.o\
+		ft_wbytelen.o ft_wcharlen.o ft_wstrlen.o
 
 HDR_LFT	=	-I include
 

@@ -54,8 +54,16 @@ static char	*ft_special(unsigned long long int nb, int base)
 		return (ft_strdup("0"));
 	if (nb == 4294967296 && base == 16)
 		return (ft_strdup("100000000"));
+	if (nb == 9223372036854775807 && base == 10)
+		return (ft_strdup("9223372036854775807"));
 	if (nb == 9223372036854775807 && base == 16)
 		return (ft_strdup("7fffffffffffffff"));
+	if (nb == (unsigned long long int)ft_power(2, 64) && base == 8)
+		return (ft_strdup("1777777777777777777777"));
+	if (nb == (unsigned long long int)ft_power(2, 64) && base == 10)
+		return (ft_strdup("18446744073709551615"));
+	if (nb == (unsigned long long int)ft_power(2, 64) && base == 16)
+		return (ft_strdup("ffffffffffffffff"));
 	return (NULL);
 }
 

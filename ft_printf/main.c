@@ -6,20 +6,26 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 14:57:33 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/20 11:46:13 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/03/01 16:45:24 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/ft_printf.h"
 #include <stdio.h>
+#include <limits.h>
+#include <locale.h>
 
-int		main(int ac, char **av)
+int		main()
 {
-	int				ret;
+	int		ret;
 
-	(void)ac;
-	(void)av;
-	ret = ft_printf("%**rS\n", "ࠄࠄࠄ");
-	printf("%d", ret);
+	ret = ft_printf("%*b\n", 50, 6546);
+	ret = ft_printf("%*t\n", -5, 6546);
+	ret = ft_printf("%*.*d\n", 0, 3, 1);
+	ret = ft_printf("%o\n", 6546);
+	ret = ft_printf("%n\n", 6546);
+	ret = ft_printf("%u\n", 6546);
+	ret = ft_printf("%x\n", 6546);
+	ret = ft_printf("%v\n", 6546);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 14:09:58 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/17 07:25:23 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/02/27 16:50:15 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,21 @@ static int	ft_size_nbr(int *tab, char *s, unsigned char nb, int base)
 	return (i);
 }
 
+static char	*ft_special(unsigned char nb, int base)
+{
+	if (nb == 0)
+		return (ft_strdup("0"));
+	if (nb == 254 && base == 10)
+		return (ft_strdup("254"));
+	if (nb == 255 && base == 10)
+		return (ft_strdup("255"));
+	if (nb == 254 && base == 16)
+		return (ft_strdup("fe"));
+	if (nb == 255 && base == 16)
+		return (ft_strdup("ff"));
+	return (NULL);
+}
+
 char		*ft_uchar_itoa_base(unsigned char nb, int base)
 {
 	char			*itoa;
@@ -57,8 +72,8 @@ char		*ft_uchar_itoa_base(unsigned char nb, int base)
 
 	n = nb;
 	ft_init(s);
-	if (nb == 0)
-		return (ft_strdup("0"));
+	if ((itoa = ft_special(nb, base)) != NULL)
+		return (itoa);
 	i[0] = ft_size_nbr(tab, s, nb, base);
 	if (!(itoa = (char *)malloc(sizeof(char) * (i[0] + 1))))
 		return (NULL);

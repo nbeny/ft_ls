@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 14:57:47 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/17 13:36:38 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/03/01 16:56:40 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 # include <stdarg.h>
 # include <stdlib.h>
 
+char		g_buf[4096];
+int			g_i;
+
 typedef struct	s_flag
 {
-	int		ret;
 	char	*format;
 	int		i;
 	char	c;
@@ -29,10 +31,12 @@ typedef struct	s_flag
 	va_list	ap;
 	int		flag[14];
 	int		size;
-	char	*Ox;
+	char	ox[3];
 	int		x;
 	int		p;
 	int		free;
+	int		wc[2];
+	int		what;
 }				t_flag;
 
 typedef struct	s_spec
@@ -40,12 +44,23 @@ typedef struct	s_spec
 	int		(*ptr)();
 	char	c;
 }				t_spec;
-
+/*
+**usefull
+*/
+char			*ft_cpynchar(char *dest, int c, size_t n);
+int				ft_putwchar_in_char(wchar_t wchar, char *fresh, int i);
+char			*ft_transform_wchar_in_char(wchar_t *ws);
+void			ft_wint_to_char(wint_t wchar, t_flag *f);
+int				ft_special(t_flag *f);
+/*
+**printf
+*/
 int				ft_printf(const char *format, ...);
 void			ft_check_init(t_flag *f);
 void			ft_init_specs1(t_spec *specs);
 void			ft_init_specs2(t_spec *specs);
 int				ft_dispatcher(t_flag *f, va_list *ap);
+int				ft_special_int(t_flag *f);
 /*
 **check
 */
@@ -63,6 +78,15 @@ int				ft_handler_ws(t_flag *f, va_list *ap);
 int				ft_handler_s(t_flag *f, va_list *ap);
 int				ft_handler_p(t_flag *f, va_list *ap);
 int				ft_handler(t_flag *f);
+int				ft_handler_undefined(t_flag *f);
+/*
+**bonus
+*/
+int				ft_handler_b(t_flag *f, va_list *ap);
+int				ft_handler_t(t_flag *f, va_list *ap);
+int				ft_handler_q(t_flag *f, va_list *ap);
+int				ft_handler_n(t_flag *f, va_list *ap);
+int				ft_handler_v(t_flag *f, va_list *ap);
 /*
 **handler d
 */
@@ -117,14 +141,15 @@ int				ft_handler_zx(t_flag *f, va_list *ap);
 int				ft_flags_char(t_flag *f);
 int				ft_flags_int(t_flag *f);
 int				ft_precision(t_flag *f);
+int				ft_flags_zero2(t_flag *f, int i);
+int				ft_flags_zero3(t_flag *f);
+int				ft_flags_moins2(t_flag *f);
+int				ft_flags_moins3(int i);
+int				ft_flags_plus2(t_flag *f);
+int				ft_flags_plus3(t_flag *f);
+int				ft_flags_int1(t_flag *f);
+int				ft_flags_int2(t_flag *f);
+int				ft_flags_int3(t_flag *f);
+int				ft_flags_int4(t_flag *f);
+int				ft_flags_int5(t_flag *f);
 #endif
-
-
-
-
-
-
-
-
-
-

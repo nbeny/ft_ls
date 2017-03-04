@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 15:00:03 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/17 06:14:32 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/02/27 18:24:23 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_handler(t_flag *f)
 		f->flag[6] == 1 || f->flag[1] > ft_strlen(f->arg) ||
 		f->flag[13] == 1)
 		return (ft_flags_char(f));
-	f->ret = 1;
-	ft_putstr(f->arg);
+	ft_strncpy(&g_buf[g_i], f->arg, f->size);
+	g_i += f->size;
 	return (0);
 }

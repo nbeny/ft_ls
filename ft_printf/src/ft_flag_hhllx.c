@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 22:44:27 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/17 10:19:48 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/02/27 20:02:25 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int		ft_handler_hhx(t_flag *f, va_list *ap)
 		return (ft_flags_int(f));
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
-	f->ret = f->size;
-	ft_putstr(f->arg);
+	ft_strncpy(&g_buf[g_i], f->arg, f->size);
+	g_i += f->size;
 	free(f->arg);
 	return (0);
 }
@@ -42,8 +42,8 @@ int		ft_handler_hx(t_flag *f, va_list *ap)
 		return (ft_flags_int(f));
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
-	ft_putstr(f->arg);
-	f->ret += f->size;
+	ft_strncpy(&g_buf[g_i], f->arg, f->size);
+	g_i += f->size;
 	free(f->arg);
 	return (0);
 }
@@ -60,8 +60,8 @@ int		ft_handler_llx(t_flag *f, va_list *ap)
 		return (ft_flags_int(f));
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
-	f->ret = f->size;
-	ft_putstr(f->arg);
+	ft_strncpy(&g_buf[g_i], f->arg, f->size);
+	g_i += f->size;
 	free(f->arg);
 	return (0);
 }
@@ -78,8 +78,8 @@ int		ft_handler_lx(t_flag *f, va_list *ap)
 		return (ft_flags_int(f));
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
-	f->ret += f->size;
-	ft_putstr(f->arg);
+	ft_strncpy(&g_buf[g_i], f->arg, f->size);
+	g_i += f->size;
 	free(f->arg);
 	return (0);
 }

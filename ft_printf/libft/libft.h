@@ -6,7 +6,7 @@
 /*   By: nbeny <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 20:28:14 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/17 11:12:52 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/03/01 16:42:51 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+size_t			ft_wstrlen(wchar_t *ws);
+int				ft_wcharlen(wchar_t wchar);
+size_t			ft_wbytelen(wchar_t *ws);
+uintmax_t		ft_power(int n, int p);
 void			*ft_memset(void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
 void			*ft_memcpy(void *s1, const void *s2, size_t n);
@@ -89,7 +93,6 @@ void			ft_sort_params(int argc, char **argv);
 int				ft_sqrt(int nb);
 void			ft_putcstr(int c, int size);
 void			ft_capitalizer(char *s);
-char			ft_sign(char *s);
 char			*ft_rotcstring(char *s);
 char			*ft_litoa_base(long int nb, int size);
 char			*ft_llitoa_base(long long int nb, int size);

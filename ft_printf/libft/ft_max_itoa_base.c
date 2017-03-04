@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 14:04:42 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/20 15:38:52 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/02/24 17:54:59 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,23 @@ static int	ft_size_nbr(int *tab, char *s, intmax_t nb, int base)
 	return (i);
 }
 
+static char	*ft_special(intmax_t nb, int base)
+{
+	if (nb == 0)
+		return (ft_strdup("0"));
+	if (nb > 9223372036854775807 && base == 10)
+		return (ft_strdup("9223372036854775808"));
+	if (nb == 9223372036854775807 && base == 10)
+		return (ft_strdup("9223372036854775807"));
+	if (nb == 9223372036854775807 && base == 16)
+		return (ft_strdup("7fffffffffffffff"));
+	if (nb < -9223372036854775807 && base == 10)
+		return (ft_strdup("-9223372036854775808"));
+	if (nb == -9223372036854775807 && base == 10)
+		return (ft_strdup("-9223372036854775807"));
+	return (NULL);
+}
+
 char		*ft_max_itoa_base(intmax_t nb, int base)
 {
 	char		*itoa;
@@ -59,8 +76,8 @@ char		*ft_max_itoa_base(intmax_t nb, int base)
 
 	n = nb;
 	ft_init(s);
-	if (nb == 0)
-		return (ft_strdup("0"));
+	if ((itoa = ft_special(nb, base)) != NULL)
+		return (itoa);
 	i[0] = ft_size_nbr(tab, s, nb, base);
 	if (!(itoa = (char *)malloc(sizeof(char) * (i[0] + 1))))
 		return (NULL);
@@ -76,5 +93,3 @@ char		*ft_max_itoa_base(intmax_t nb, int base)
 	itoa[i[1]] = 0;
 	return (itoa);
 }
-
-

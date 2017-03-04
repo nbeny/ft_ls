@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 11:09:40 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/17 11:11:36 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/02/27 21:14:37 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_putnstr(char *s, int n)
 	i = 0;
 	if (s)
 	{
-		while (i < n && s[i])
+		while (i < n)
 		{
 			ft_putchar(s[i]);
 			i++;

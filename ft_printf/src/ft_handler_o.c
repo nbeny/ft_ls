@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/07 22:25:16 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/17 10:21:11 by nbeny            ###   ########.fr       */
+/*   Created: 2017/02/24 17:44:28 by nbeny             #+#    #+#             */
+/*   Updated: 2017/02/27 18:26:02 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int		ft_handler_wo(t_flag *f, va_list *ap)
 		f->flag[6] == 1 || f->flag[1] > ft_strlen(f->arg) ||
 		f->flag[13] == 1)
 		return (ft_flags_int(f));
-	f->ret += f->size;
-	ft_putstr(f->arg);
+	ft_strncpy(&g_buf[g_i], f->arg, f->size);
+	g_i += f->size;
 	free(f->arg);
 	return (0);
 }
@@ -58,8 +58,8 @@ int		ft_handler_o(t_flag *f, va_list *ap)
 		f->flag[6] == 1 || f->flag[1] > ft_strlen(f->arg) ||
 		f->flag[13] == 1)
 		return (ft_flags_int(f));
-	f->ret += f->size;
-	ft_putstr(f->arg);
+	ft_strncpy(&g_buf[g_i], f->arg, f->size);
+	g_i += f->size;
 	free(f->arg);
 	return (0);
 }

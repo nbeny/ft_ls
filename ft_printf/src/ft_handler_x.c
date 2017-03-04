@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 22:35:26 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/17 10:21:39 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/02/27 18:28:20 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int		ft_modifier_x(t_flag *f, va_list *ap)
 
 int		ft_handler_wx(t_flag *f, va_list *ap)
 {
-	if (f->flag[9] == 1)
-		return(ft_modifier_x(f, ap));
+	if (f->flag[7] == 1 || f->flag[8] == 1 ||
+		f->flag[9] == 1 || f->flag[10] == 1 ||
+		f->flag[11] == 1 || f->flag[12] == 1)
+		return (ft_modifier_x(f, ap));
 	f->arg = ft_uitoa_base((unsigned int)va_arg(*ap, unsigned int), 16);
 	f->size = ft_strlen(f->arg);
 	if (f->flag[2] == 1 || f->flag[3] == 1 ||
@@ -42,8 +44,8 @@ int		ft_handler_wx(t_flag *f, va_list *ap)
 		return (ft_flags_int(f));
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
-	f->ret += f->size;
-	ft_putstr(f->arg);
+	ft_strncpy(&g_buf[g_i], f->arg, f->size);
+	g_i += f->size;
 	free(f->arg);
 	return (0);
 }
@@ -63,8 +65,8 @@ int		ft_handler_x(t_flag *f, va_list *ap)
 		return (ft_flags_int(f));
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
-	f->ret += f->size;
-	ft_putstr(f->arg);
+	ft_strncpy(&g_buf[g_i], f->arg, f->size);
+	g_i += f->size;
 	free(f->arg);
 	return (0);
 }

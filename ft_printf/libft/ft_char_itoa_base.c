@@ -6,13 +6,13 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 13:56:13 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/20 15:41:20 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/02/24 18:09:46 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_init(char *s)
+static void		ft_init(char *s)
 {
 	s[0] = '0';
 	s[1] = '1';
@@ -32,9 +32,9 @@ static void	ft_init(char *s)
 	s[15] = 'f';
 }
 
-static int	ft_size_nbr(int *tab, char *s, signed char nb, int base)
+static int		ft_size_nbr(int *tab, char *s, signed char nb, int base)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	if (nb < 0)
@@ -49,15 +49,20 @@ static int	ft_size_nbr(int *tab, char *s, signed char nb, int base)
 	return (i);
 }
 
-static char	*ft_special(signed char nb, int base)
+static char		*ft_special(signed char nb, int base)
 {
 	if (nb == 0)
 		return (ft_strdup("0"));
+	if (nb == -127 && base == 10)
+		return (ft_strdup("-127"));
+	if (nb == 127 && base == 10)
+		return (ft_strdup("127"));
 	if ((nb == (signed char)-128 || nb == (signed char)128) && base == 10)
 		return (ft_strdup("-128"));
 	return (NULL);
 }
-char		*ft_char_itoa_base(signed char nb, int base)
+
+char			*ft_char_itoa_base(signed char nb, int base)
 {
 	char		*itoa;
 	char		s[16];
@@ -84,5 +89,3 @@ char		*ft_char_itoa_base(signed char nb, int base)
 	itoa[i[1]] = 0;
 	return (itoa);
 }
-
-

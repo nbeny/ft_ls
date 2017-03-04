@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/16 12:07:25 by nbeny             #+#    #+#             */
-/*   Updated: 2017/02/20 15:44:09 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/02/24 17:53:52 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ static char	*ft_special(long long int nb, int base)
 {
 	if (nb == 0)
 		return (ft_strdup("0"));
+	if (nb == 9223372036854775807 && base == 10)
+		return (ft_strdup("9223372036854775807"));
+	if (nb == 9223372036854775807 && base == 16)
+		return (ft_strdup("7fffffffffffffff"));
+	if (nb > 9223372036854775807 && base == 10)
+		return (ft_strdup("9223372036854775808"));
+	if (nb == -9223372036854775807 && base == 10)
+		return (ft_strdup("-9223372036854775807"));
 	if (nb < (long long int)-9223372036854775807 && base == 10)
 		return (ft_strdup("-9223372036854775808"));
 	return (NULL);
@@ -86,5 +94,3 @@ char		*ft_llitoa_base(long long int nb, int base)
 	itoa[i[1]] = 0;
 	return (itoa);
 }
-
-

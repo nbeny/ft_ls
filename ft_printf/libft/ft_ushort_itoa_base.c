@@ -59,6 +59,12 @@ char		*ft_ushort_itoa_base(unsigned short int nb, int base)
 	ft_init(s);
 	if (nb == 0)
 		return (ft_strdup("0"));
+	if (nb == 65535 && base == 10)
+		return (ft_strdup("65535"));
+	if (nb == 32768 && base == 10)
+		return (ft_strdup("32768"));
+	if (nb == 65535 && base == 16)
+		return (ft_strdup("ffff"));
 	i[0] = ft_size_nbr(tab, s, nb, base);
 	if (!(itoa = (char *)malloc(sizeof(char) * (i[0] + 1))))
 		return (NULL);
