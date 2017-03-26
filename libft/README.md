@@ -22,6 +22,7 @@ additionnel:
       ft_sort_params
       ft_putnbr_base (x 14)
       ft_itoa_base (x 13)
+      ft_wchar_fonction (x 3)
 
 
 ##### test avec libft_unit_test:
