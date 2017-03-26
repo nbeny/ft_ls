@@ -1,75 +1,82 @@
 NAME	=	ft_ls
 
-SRC_PTF	=	src/ft_printf.c src/ft_check.c src/ft_dispatcher.c\
-		src/ft_handler_c.c src/ft_handler_s.c src/ft_handler_p.c src/ft_handler_d.c\
-		src/ft_handler_o.c src/ft_handler_u.c src/ft_handler_x.c src/ft_handler.c\
-		src/ft_flag_hhlld.c src/ft_flag_hhllo.c src/ft_flag_hhllu.c src/ft_flag_hhllx.c\
-		src/ft_flag_jzd.c src/ft_flag_jzo.c src/ft_flag_jzu.c src/ft_flag_jzx.c\
-		src/ft_flags_char.c src/ft_flags_int.c src/ft_precision.c
+N_INC	=	ft_ls.h
+N_SRC	=	main.c
 
-OBJ_PTF	=	ft_printf.o ft_check.o ft_dispatcher.o\
-		ft_handler_c.o ft_handler_s.o ft_handler_p.o ft_handler_d.o\
-		ft_handler_o.o ft_handler_u.o ft_handler_x.o ft_handler.o\
-		ft_flag_hhlld.o ft_flag_hhllo.o ft_flag_hhllu.o ft_flag_hhllx.o\
-		ft_flag_jzd.o ft_flag_jzo.o ft_flag_jzu.o ft_flag_jzx.o\
-		ft_flags_char.o ft_flags_int.o ft_precision.o
+CC	=	gcc
+CC_FLAG	=	-Wall -Wextra -Werror
 
-HDR_PTF	=	-I ft_printf.h
+T_SRC	=	./src/
+T_INC	=	./includes/
+T_OBJ	=	./obj/
+T_LFT	=	libft/
+T_PTF	=	ft_printf/
 
-OBJ_LFT	=	ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o\
-		ft_memmove.o ft_memchr.o ft_memcmp.o\
-		ft_strlen.o ft_strdup.o	ft_strcpy.o ft_strncpy.o\
-		ft_strcat.o ft_strncat.o ft_strlcat.o ft_strchr.o\
-		ft_strrchr.o ft_strstr.o ft_strnstr.o ft_strcmp.o\
-		ft_strncmp.o\
-		ft_atoi.o ft_isalpha.o ft_isdigit.o ft_isalnum.o\
-		ft_isascii.o ft_isprint.o ft_toupper.o ft_tolower.o\
-		ft_memalloc.o ft_memdel.o\
-		ft_strnew.o ft_strdel.o ft_strclr.o ft_striter.o\
-		ft_striteri.o ft_strmap.o ft_strmapi.o ft_strequ.o\
-		ft_strnequ.o ft_strsub.o ft_strjoin.o ft_strtrim.o\
-		ft_strsplit.o\
-		ft_itoa.o ft_itoa_base.o ft_litoa_base.o ft_uitoa_base.o\
-		ft_ulitoa_base.o ft_max_itoa_base.o ft_umax_itoa_base.o\
-		ft_size_itoa_base.o ft_short_itoa_base.o ft_ushort_itoa_base.o\
-		ft_char_itoa_base.o ft_uchar_itoa_base.o ft_llitoa_base.o\
-		ft_ullitoa_base.o\
-		ft_putchar.o ft_putstr.o ft_putendl.o ft_putnbr.o\
-		ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o\
-		ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o\
-		ft_lstiter.o ft_lstmap.o\
-		ft_max.o ft_min.o ft_sort_integer_tab.o ft_sort_params.o\
-		ft_sqrt.o\
-		ft_putcstr.o ft_capitalizer.o ft_sign.o ft_rotcstring.o\
-		ft_putnstr.o
+I_INC	=	./includes/
+I_LFT	=	./libft/includes
+I_PFT	=	./ft_printf/includes
+L_LFT	=	-L ./libft/ -lft
+L_PFT	=	-L ./ft_printf/ -lftprintf
 
-SRC	=	main.c
+CL_N	=	\033[0m
+CL_R	=	\033[31m
+CL_V	=	\033[32m
+CL_J	=	\033[33m
+CL_B	=	\033[34m
+CL_C	=	\033[36m
 
-OBJ	=	main.o
+CL_NS	=	\033[0;4m
+CL_RS	=	\033[31;4m
+CL_VS	=	\033[32;4m
+CL_JS	=	\033[33;4m
+CL_BS	=	\033[34;4m
+CL_CS	=	\033[36;4m
 
-HDR	=	ft_ls.h
+CL_NG	=	\033[0;1m
+CL_RG	=	\033[31;1m
+CL_VG	=	\033[32;1m
+CL_JG	=	\033[33;1m
+CL_BG	=	\033[34;1m
+CL_CG	=	\033[36;1m
 
-FLAGS	=	-Wall -Wextra -Werror
+SRC	=	$(addprefix $(T_SRC), $(N_SRC))
+OBJ	=	$(addprefix $(T_OBJ), $(N_OBJ))
+INC	=	$(addprefix -I, $(I_INC) $(I_LFT) $(I_PFT))
+
+N_OBJ	=	$(N_SRC:.c=.o)
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(SRC)
-		@echo ">Build $(NAME)"
-		@make -C ft_printf/
-		@gcc -c $(FLAGS) $(SRC)
-		@gcc $(FLAGS) $(OBJ) $(HDR) $(addprefix 'ft_printf/', $(OBJ_PTF))\
-		$(addprefix 'ft_printf/libft/', $(OBJ_LFT)) -o $(NAME)
+$(NAME): $(OBJ)
+	@echo ">$(CL_V)Build: $(CL_VG)libft$(CL_N)\n"
+	@make -C $(T_LFT)
+	@echo ">$(CL_V)Build: $(CL_VG)ft_printf$(CL_N)\n"
+	@make -C $(T_PFT)
+	@echo ">$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)\n"
+	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(INC) $(L_LFT)
+
+$(T_OBJ)%.o: $(T_SRC)%.c
+	@echo "$(CL_V)>Creat: repository Object$(CL_N)"
+	@mkdir -p $(T_OBJ)
+	@echo "$(CL_V)>>Creat: Objects files..$(CL_N)"
+	@$(CC) $(CC_FLAG) -o $@ -c $^ $(INC)
 
 clean:
-		@echo ">Delete object"
-		@rm -f $(OBJ)
-		@make -C printf/ clean
+	@echo "$(CL_R)>clean: $(CL_B)$(NAME) objects$(CL_N)\n"
+	@rm -rf $(T_OBJ)
+	@echo "$(CL_R)>clean: $(CL_B)libft objects$(CL_N)\n"
+	@make -C $(T_LFT) clean
+	@echo "$(CL_R)>clean: $(CL_B)printf objects$(CL_N)\n"
+	@make -C $(T_PFT) clean
 
-fclean:
-		@echo ">Delete $(NAME)"
-		@rm -f $(NAME) $(OBJ)
-		@make -C printf/ fclean
+fclean: clean
+	@echo "$(CL_R)>Delete: $(CL_B)$(NAME)$(CL_N)\n"
+	@rm -f $(NAME)
+	@echo "$(CL_R)>Delete: $(CL_B)libft$(CL_N)\n"
+	@make -C $(T_LFT) fclean
+	@echo "$(CL_R)>Delete: $(CL_B)ft_printf$(CL_N)\n"
+	@make -C $(T_PFT) fclean
 
 re: fclean all

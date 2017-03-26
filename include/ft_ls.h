@@ -39,6 +39,4 @@ typedef struct	s_elem
 	blkcnt_t	st_blocks;
 	struct s_elem	*next;
 }		t_elem;
-
-
 #endif
