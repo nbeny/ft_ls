@@ -15,11 +15,13 @@ Bonus:
 additionnel:
 - [X] Fonctions ajoutées
 
-      - [X] ft_sqrt
-      - [X] ft_max
-      - [X] ft_min
-      - [X] ft_sort_integer_tab
-      - [X] ft_sort_params
+      * ft_sqrt
+      * ft_max
+      * ft_min
+      * ft_sort_integer_tab
+      * ft_sort_params
+      * ft_putnbr_base (x 14)
+      * ft_itoa_base (x 13)
 
 
 ##### test avec libft_unit_test:
