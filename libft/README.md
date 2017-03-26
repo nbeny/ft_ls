@@ -14,6 +14,7 @@ Bonus:
 
 additionnel:
 - [X] Fonctions ajoutées
+
       - [X] ft_sqrt
       - [X] ft_max
       - [X] ft_min
