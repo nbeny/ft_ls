@@ -1,7 +1,7 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
-# include "../libft/libft.h"
+# include "../libft/include/libft.h"
 # include "../ft_printf/include/ft_printf.h"
 # include <dirent.h>
 # include <sys/stat.h>
@@ -18,11 +18,14 @@
 
 typedef struct	s_opt
 {
-	int	l;
-	int	rec;
-	int	a;
 	int	r;
-	int	t;
+	int	up_g;
+	int	a;
+	int	up_a;
+	int	up_u;
+	int	up_f;
+	int	l;
+	int	up_r;
 }		t_opt;
 
 typedef struct	s_elem
@@ -39,4 +42,21 @@ typedef struct	s_elem
 	blkcnt_t	st_blocks;
 	struct s_elem	*next;
 }		t_elem;
+
+/*
+**Corp
+*/
+int		main(int ac, char **av);
+int		ft_ls(char *str);
+t_opt	ft_init_opt(t_opt opt);
+int		ft_check_opt(char *str, t_opt *opt);
+/*
+**mem_tri
+*/
+
+
+/*
+**print
+*/
+
 #endif

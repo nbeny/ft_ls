@@ -73,10 +73,22 @@ void affiche_status (char * nom)
 			fprintf(stderr,"\t%-24.24s\t",ctime(&status.st_mtime));
 			fflush(stdin);
 
-			if((ptdir=opendir(nom)) != NULL) { couleur("34" ); fprintf(stderr,"%s\n",nom);couleur("0" ); }
-			else if(S_ISREG(status.st_mode )  && status.st_mode &  0111 ){ couleur("32" ); fprintf(stderr,"%s\n",nom);couleur("0" ); } /* ((status.st_mode & S_IFMT) != S_IFREG) : .exe */
+			if((ptdir=opendir(nom)) != NULL)
+			{
+				couleur("34" );
+				fprintf(stderr,"%s\n",nom);
+				couleur("0" );
+			}
+			else if (S_ISREG(status.st_mode ) && status.st_mode & 0111)
+			{
+				couleur("32" );
+				fprintf(stderr,"%s\n",nom);
+				couleur("0" );
+			}
+			/* ((status.st_mode & S_IFMT) != S_IFREG) : .exe */
 
-			else        fprintf(stderr,"%s\n",nom);
+			else
+				fprintf(stderr,"%s\n",nom);
 		}
 	}
 	else perror("STAT" );
