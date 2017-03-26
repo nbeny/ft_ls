@@ -6,13 +6,14 @@
 #    By: nbeny <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 21:11:22 by nbeny             #+#    #+#              #
-#    Updated: 2017/02/17 11:12:11 by nbeny            ###   ########.fr        #
+#    Updated: 2017/03/15 02:22:22 by nbeny            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME	=	libft.a
 
-SRCS	=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
+N_HDR	=	libft.h
+N_SRC	=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 		ft_memmove.c ft_memchr.c ft_memcmp.c\
 		ft_strlen.c ft_strdup.c	ft_strcpy.c ft_strncpy.c\
 		ft_strcat.c ft_strncat.c ft_strlcat.c ft_strchr.c\
@@ -32,8 +33,6 @@ SRCS	=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 		ft_ullitoa_base.c\
 		ft_putchar.c ft_putstr.c ft_putendl.c ft_putnbr.c\
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
-		ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c\
-		ft_lstiter.c ft_lstmap.c\
 		ft_max.c ft_min.c ft_sort_integer_tab.c ft_sort_params.c\
 		ft_sqrt.c\
 		ft_putcstr.c ft_capitalizer.c ft_rotcstring.c ft_putnstr.c\
@@ -44,53 +43,62 @@ SRCS	=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 		ft_size_putnbr_base.c ft_power.c\
 		ft_wbytelen.c ft_wcharlen.c ft_wstrlen.c
 
-OBJS	=	ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o\
-		ft_memmove.o ft_memchr.o ft_memcmp.o\
-		ft_strlen.o ft_strdup.o	ft_strcpy.o ft_strncpy.o\
-		ft_strcat.o ft_strncat.o ft_strlcat.o ft_strchr.o\
-		ft_strrchr.o ft_strstr.o ft_strnstr.o ft_strcmp.o\
-		ft_strncmp.o\
-		ft_atoi.o ft_isalpha.o ft_isdigit.o ft_isalnum.o\
-		ft_isascii.o ft_isprint.o ft_toupper.o ft_tolower.o\
-		ft_memalloc.o ft_memdel.o\
-		ft_strnew.o ft_strdel.o ft_strclr.o ft_striter.o\
-		ft_striteri.o ft_strmap.o ft_strmapi.o ft_strequ.o\
-		ft_strnequ.o ft_strsub.o ft_strjoin.o ft_strtrim.o\
-		ft_strsplit.o\
-		ft_itoa.o ft_itoa_base.o ft_litoa_base.o ft_uitoa_base.o\
-		ft_ulitoa_base.o ft_max_itoa_base.o ft_umax_itoa_base.o\
-		ft_size_itoa_base.o ft_short_itoa_base.o ft_ushort_itoa_base.o\
-		ft_char_itoa_base.o ft_uchar_itoa_base.o ft_llitoa_base.o\
-		ft_ullitoa_base.o\
-		ft_putchar.o ft_putstr.o ft_putendl.o ft_putnbr.o\
-		ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o\
-		ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o\
-		ft_lstiter.o ft_lstmap.o\
-		ft_max.o ft_min.o ft_sort_integer_tab.o ft_sort_params.o\
-		ft_sqrt.o\
-		ft_putcstr.o ft_capitalizer.o ft_rotcstring.o ft_putnstr.o\
-		ft_short_putnbr_base.o ft_ushort_putnbr_base.o ft_char_putnbr_base.o\
-		ft_uchar_putnbr_base.o ft_putnbr_base.o ft_uputnbr_base.o\
-		ft_lputnbr_base.o ft_ulputnbr_base.o ft_llputnbr_base.o\
-		ft_ullputnbr_base.o ft_max_putnbr_base.o ft_umax_putnbr_base.o\
-		ft_size_putnbr_base.o ft_power.o\
-		ft_wbytelen.o ft_wcharlen.o ft_wstrlen.o
+CC	=	gcc
+CC_FLAG	=	-Wall -Wextra -Werror
 
-HDRS	=	libft.h
+T_SRC	=	./src/
+T_INC	=	./include/
+T_OBJ	=	./obj/
 
-FLAGS	=	-Wall -Wextra -Werror
+CL_N	=	\033[0m
+CL_R	=	\033[31m
+CL_V	=	\033[32m
+CL_J	=	\033[33m
+CL_B	=	\033[34m
+CL_C	=	\033[36m
+
+CL_NS	=	\033[0;4m
+CL_RS	=	\033[31;4m
+CL_VS	=	\033[32;4m
+CL_JS	=	\033[33;4m
+CL_BS	=	\033[34;4m
+CL_CS	=	\033[36;4m
+
+CL_NG	=	\033[0;1m
+CL_RG	=	\033[31;1m
+CL_VG	=	\033[32;1m
+CL_JG	=	\033[33;1m
+CL_BG	=	\033[34;1m
+CL_CG	=	\033[36;1m
+
+SRC	=	$(addprefix $(T_SRC), $(N_SRC))
+OBJ	=	$(addprefix $(T_OBJ), $(N_OBJ))
+INC	=	$(addprefix -I, $(I_INC))
+
+N_OBJ	=	$(N_SRC:.c=.o)
+
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME):
-		gcc $(FLAGS) -c $(SRCS) -I $(HDRS)
-		ar rc $(NAME) $(OBJS)
-		ranlib $(NAME)
+$(NAME): $(OBJ)
+		@echo "\n>$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)"
+		@ar rc $(NAME) $(OBJ)
+		@echo ">$(CL_J)Ranlib booster..$(CL_N)"
+		@ranlib $(NAME)
+
+$(T_OBJ)%.o: $(T_SRC)%.c
+		@echo "$(CL_V)>Creat: Objects files..$(CL_N)"
+		@mkdir -p $(T_OBJ)
+		@$(CC) $(CC_FLAG) -o $@ -c $^ $(INC)
 
 clean:
-		rm -f $(OBJS)
+		@echo "$(CL_R)>clean: $(CL_B)$(NAME) objects$(CL_N)"
+		@rm -f $(OBJ)
+		@rm -Rf $(T_OBJ)
 
 fclean: clean
-		rm -f $(NAME)
+		@echo "$(CL_R)>Delete: $(CL_B)$(NAME)$(CL_N)"
+		@rm -f $(NAME)
 
 re: fclean all
