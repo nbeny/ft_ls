@@ -22,7 +22,6 @@ int		ft_handler_hhd(t_flag *f, va_list *ap, t_list **begin_lst)
 		f->flag[13] == 1)
 		return (ft_flags_int(f, begin_lst));
 	ft_multibuf_arg(f, begin_lst, f->size);
-	f->ret += f->size;
 	free(f->arg);
 	return (0);
 }
@@ -37,7 +36,6 @@ int		ft_handler_hd(t_flag *f, va_list *ap, t_list **begin_lst)
 		f->flag[13] == 1)
 		return (ft_flags_int(f, begin_lst));
 	ft_multibuf_arg(f, begin_lst, f->size);
-	f->ret += f->size;
 	if (f->arg[0] != '0')
 		free(f->arg);
 	return (0);
@@ -53,7 +51,6 @@ int		ft_handler_lld(t_flag *f, va_list *ap, t_list **begin_lst)
 		f->flag[13] == 1)
 		return (ft_flags_int(f, begin_lst));
 	ft_multibuf_arg(f, begin_lst, f->size);
-	f->ret += f->size;
 	free(f->arg);
 	return (0);
 }
@@ -64,11 +61,10 @@ int		ft_handler_ld(t_flag *f, va_list *ap, t_list **begin_lst)
 	f->size = ft_strlen(f->arg);
 	if (f->flag[2] == 1 || f->flag[3] == 1 ||
 		f->flag[4] == 1 || f->flag[5] == 1 ||
-	    f->flag[6] == 1 || f->flag[1] > (int)f->size ||
+		f->flag[6] == 1 || f->flag[1] > (int)f->size ||
 		f->flag[13] == 1)
 		return (ft_flags_int(f, begin_lst));
 	ft_multibuf_arg(f, begin_lst, f->size);
-	f->ret += f->size;
 	free(f->arg);
 	return (0);
 }

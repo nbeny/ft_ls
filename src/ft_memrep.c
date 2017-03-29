@@ -1,7 +1,9 @@
 #include "../include/ft_ls.h"
 
-t_elem	*ft_lstcpy_inelem(struct stat *stat, t_elem *elem)
+t_elem	*ft_lstcpy_inelem(struct dirent *d, struct stat *stat, t_elem *elem)
 {
+	elem->d_name = d->d_name;
+	elem->d_namlen = d->d_namlen;
 	elem->st_dev = stat->st_dev;
 	elem->st_mode = stat->st_mode;
 	elem->st_nlink = stat->st_nlink;
@@ -36,7 +38,7 @@ t_elem	*ft_getstat(struct dirent *d, struct stat *stat, t_elem **elem)
 		perror("error stat fonction !\n");
 		exite(EXIT_FAILURE);
 	}
-	elem = ft_lstcpy_inelem(stat);
+	elem = ft_lstcpy_inelem(d, stat);
 	return (elem);
 }
 

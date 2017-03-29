@@ -17,7 +17,6 @@ static t_flag	ft_init_f(t_flag f)
 	int i;
 
 	i = -1;
-	f.ret = 0;
 	f.i = 0;
 	f.c = 0;
 	f.arg = NULL;
@@ -36,7 +35,7 @@ static t_flag	ft_init_f(t_flag f)
 	return (f);
 }
 
-void		ft_free(t_list *begin_lst)
+void			ft_free(t_list *begin_lst)
 {
 	t_list *lst_nxt;
 
@@ -48,14 +47,15 @@ void		ft_free(t_list *begin_lst)
 		begin_lst = lst_nxt;
 	}
 }
-int		ft_print_and_free(t_list *begin_lst, int a)
+
+int				ft_print_and_free(t_err *e, t_list *begin_lst, t_flag *f)
 {
 	size_t	ret;
 	t_list	*tmp;
 
 	ret = 0;
 	tmp = begin_lst;
-	if (a != -1)
+	if (e->a > -1)
 	{
 		while (begin_lst)
 		{
@@ -68,57 +68,42 @@ int		ft_print_and_free(t_list *begin_lst, int a)
 	{
 		begin_lst = tmp;
 		ft_free(begin_lst);
-		return(-1);
+		return (-1);
 	}
 	begin_lst = tmp;
 	ft_free(begin_lst);
+	if (f->neg == -1)
+		return (-1);
 	return ((int)ret);
 }
 
-int				ft_fill_stdout(const char *format,
-					       va_list *ap)
+int				ft_fill_stdout(const char *format, va_list *ap)
 {
-	size_t		i;
+	t_err		e;
 	t_flag		f;
 	t_list		*begin_lst;
-	int			a;
 
-	i = -1;
+	e.i = -1;
+	f.neg = 0;
 	if (!(begin_lst = (t_list *)malloc(sizeof(t_list))))
 		return (-1);
 	begin_lst->next = NULL;
 	begin_lst->i = 0;
-	while (format[++i] != '\0')
+	while (format[++e.i] != '\0')
 	{
-		if (format[i] == '%')
+		if (format[e.i] == '%')
 		{
-			if (format[i + 1] == '\0')
+			if (format[e.i + 1] == '\0')
 				break ;
 			f = ft_init_f(f);
-			f.format = (char *)&format[++i];
-			if ((a = ft_dispatcher(&f, ap, &begin_lst)) == -1)
-			{
-				if (f.free == 1)
-					free(f.arg);
+			f.format = (char *)&format[++e.i];
+			if (ft_pourcent_gestion(&e, &begin_lst, &f, ap) == -1)
 				break ;
-			}
-			if (f.free == 1)
-				free(f.arg);
-			i += f.i;
 		}
-		else
-		{
-			a = (int)ft_booster(format, i, &begin_lst) - 1;
-			if (a == -2)
-			{
-				a = -1;
-				break ;
-			}
-			else
-				i = (size_t)a;
-		}
+		else if (ft_error_copy(&e, format, &begin_lst) == -1)
+			break ;
 	}
-	return (ft_print_and_free(begin_lst, a));
+	return (ft_print_and_free(&e, begin_lst, &f));
 }
 
 int				ft_printf(const char *format, ...)

@@ -2,14 +2,13 @@
 
 t_opt	*ft_init_opt(t_opt *opt)
 {
-	opt->r = 0;
-	opt->up_g = 0;
-	opt->a = 0;
-	opt->up_a = 0;
-	opt->up_u = 0;
-	opt->up_f = 0;
-	opt->l = 0;
 	opt->up_r = 0;
+	opt->l = 0;
+	opt->r = 0;
+	opt->f = 0;
+	opt->t = 0;
+	opt->u = 0;
+	opt->up_g = 0;
 	return (opt);
 }
 

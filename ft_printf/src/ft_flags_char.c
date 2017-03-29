@@ -26,15 +26,9 @@ static int	ft_flag_moins(t_flag *f, t_list **begin_lst)
 	}
 	i = f->flag[1] - (int)f->size;
 	if (f->size > 0)
-	{
 		ft_multibuf_arg(f, begin_lst, f->size);
-		f->ret += f->size;
-	}
 	if (i > 0)
-	{
 		ft_multibuf_nchar(begin_lst, ' ', (size_t)i);
-		f->ret += (size_t)i;
-	}
 	return (0);
 }
 
@@ -52,15 +46,9 @@ static int	ft_flag_plus(t_flag *f, t_list **begin_lst)
 	}
 	i = f->flag[1] - (int)f->size;
 	if (i > 0)
-	{
 		ft_multibuf_nchar(begin_lst, ' ', (size_t)i);
-		f->ret += (size_t)i;
-	}
 	if (f->size > 0)
-	{
 		ft_multibuf_arg(f, begin_lst, f->size);
-		f->ret += f->size;
-	}
 	return (0);
 }
 
@@ -78,15 +66,9 @@ static int	ft_flag_zero(t_flag *f, t_list **begin_lst)
 	}
 	i = f->flag[1] - (int)f->size;
 	if (i > 0)
-	{
 		ft_multibuf_nchar(begin_lst, '0', (size_t)i);
-		f->ret += (size_t)i;
-	}
 	if (f->size > 0)
-	{
 		ft_multibuf_arg(f, begin_lst, f->size);
-		f->ret += f->size;
-	}
 	return (0);
 }
 
@@ -98,7 +80,7 @@ int			ft_flags_char(t_flag *f, t_list **begin_lst)
 		return (ft_flag_zero(f, begin_lst));
 	if (f->flag[5] == 1 || f->flag[6] == 1 || f->flag[1] > (int)f->size ||
 		(f->flag[1] > f->flag[0] && f->flag[13] == 1 &&
-		 f->flag[0] < (int)f->size))
+		f->flag[0] < (int)f->size))
 		return (ft_flag_plus(f, begin_lst));
 	if (f->flag[13] == 1 && f->flag[0] < (int)f->size &&
 		f->c != '%' && f->c != 'c' && f->c != 'C' &&
@@ -109,6 +91,5 @@ int			ft_flags_char(t_flag *f, t_list **begin_lst)
 		f->size = (size_t)f->flag[0];
 	}
 	ft_multibuf_arg(f, begin_lst, f->size);
-	f->ret += f->size;
 	return (0);
 }

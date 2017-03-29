@@ -49,14 +49,12 @@ static int	ft_flag_zero(t_flag *f, t_list **begin_lst)
 		(f->c == 'd' || f->c == 'D' || f->c == 'i'))
 	{
 		ft_multibuf_nchar(begin_lst, '+', 1);
-		f->ret += 1;
 		i--;
 	}
 	ft_flags_zero2(f, i, begin_lst);
 	if (f->flag[0] != -1)
 	{
 		ft_multibuf_arg(f, begin_lst, f->size);
-		f->ret += f->size;
 		free(f->arg);
 	}
 	return (0);
@@ -73,19 +71,17 @@ static int	ft_flag_moins(t_flag *f, t_list **begin_lst)
 		(f->c == 'd' || f->c == 'D' || f->c == 'i'))
 	{
 		ft_multibuf_nchar(begin_lst, '+', 1);
-		f->ret += 1;
 		i--;
 	}
 	if (f->arg[0] == '-')
 	{
 		f->arg = ft_rotcstring(f->arg);
 		ft_multibuf_nchar(begin_lst, '-', 1);
-		f->ret += 1;
 		f->size -= 1;
 		f->p += 1;
 	}
 	ft_flags_moins2(f, begin_lst);
-	ft_flags_moins3(f, i, begin_lst);
+	ft_flags_moins3(i, begin_lst);
 	return (0);
 }
 
@@ -102,16 +98,10 @@ static int	ft_flag_plus(t_flag *f, t_list **begin_lst)
 		f->arg[0] == '-')
 		i--;
 	if (i > 0)
-	{
 		ft_multibuf_nchar(begin_lst, ' ', i);
-		f->ret += (size_t)i;
-	}
 	if (f->flag[5] == 1 && f->arg[0] != '-' &&
 		(f->c == 'd' || f->c == 'D' || f->c == 'i'))
-	{
 		ft_multibuf_nchar(begin_lst, '+', 1);
-		f->ret += 1;
-	}
 	return (ft_flags_int2(f, begin_lst));
 }
 
@@ -128,7 +118,7 @@ int			ft_flags_int(t_flag *f, t_list **begin_lst)
 	if (f->flag[3] == 1)
 		return (ft_flag_zero(f, begin_lst));
 	if (f->flag[5] == 1 || f->flag[6] == 1 ||
-	    f->flag[1] > (int)f->size)
+		f->flag[1] > (int)f->size)
 		return (ft_flag_plus(f, begin_lst));
 	ft_flags_int2(f, begin_lst);
 	return (0);

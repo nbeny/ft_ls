@@ -29,7 +29,8 @@ N_SRC	=	ft_printf.c		ft_check.c\
 		ft_flags_int4.c		ft_handler_b.c\
 		ft_handler_t.c		ft_handler_q.c\
 		ft_handler_n.c		ft_handler_v.c\
-		ft_buffer.c
+		ft_buffer.c		ft_buffer2.c\
+		ft_printf2.c
 
 CC	=	gcc
 CC_FLAG	=	-Wall -Wextra -Werror
@@ -37,11 +38,10 @@ CC_FLAG	=	-Wall -Wextra -Werror
 T_SRC	=	./src/
 T_INC	=	./include/
 T_OBJ	=	./obj/
-T_LFT	=	libft/
+T_LFT	=	./libft/
 
 I_INC	=	./include/
-I_LFT	=	./libft/
-L_LFT	=	-L ./libft/ -lft
+I_LFT	=	./libft/include/
 
 CL_N	=	\033[0m
 CL_R	=	\033[31m
@@ -85,7 +85,7 @@ $(NAME): $(OBJ)
 $(T_OBJ)%.o: $(T_SRC)%.c
 		@echo "$(CL_V)>Creat: Objects files..$(CL_N)"
 		@mkdir -p $(T_OBJ)
-		@$(CC) $(CC_FLAG) -o $@ -c $^ $(INC)
+		@$(CC) $(CC_FLAG) $(L_LFT) -o $@ -c $^ $(INC)
 
 clean:
 		@echo "$(CL_R)>clean: $(CL_B)libft objects$(CL_N)"

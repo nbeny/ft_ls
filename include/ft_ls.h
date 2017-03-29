@@ -18,18 +18,19 @@
 
 typedef struct	s_opt
 {
-	int	r;
-	int	up_g;
-	int	a;
-	int	up_a;
-	int	up_u;
-	int	up_f;
-	int	l;
 	int	up_r;
+	int	l;
+	int	r;
+	int	f;
+	int	t;
+	int	u;
+	int	up_g;
 }				t_opt;
 
 typedef struct	s_elem
 {
+	char			d_name[255];
+	__uint8_t		d_namlen;
 	dev_t			st_dev;		/* ID of device containing file */
 	mode_t			st_mode;	/* Mode of file (see below) */
 	nlink_t			st_nlink;	/* Number of hard links */

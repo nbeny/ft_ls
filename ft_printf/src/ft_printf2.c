@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handler_n.c                                     :+:      :+:    :+:   */
+/*   ft_printf2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/07 11:05:56 by nbeny             #+#    #+#             */
-/*   Updated: 2017/03/07 11:06:00 by nbeny            ###   ########.fr       */
+/*   Created: 2017/03/22 07:56:18 by nbeny             #+#    #+#             */
+/*   Updated: 2017/03/22 07:56:22 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-int		ft_handler_n(t_flag *f, va_list *ap, t_list **begin_lst)
+int		ft_pourcent_gestion(t_err *e, t_list **begin_lst,
+					t_flag *f, va_list *ap)
 {
-	f->arg = ft_uitoa_base((unsigned int)va_arg(*ap, unsigned int), 9);
-	f->size = ft_strlen(f->arg);
-	if (f->flag[2] == 1 || f->flag[3] == 1 ||
-		f->flag[4] == 1 || f->flag[5] == 1 ||
-		f->flag[6] == 1 || f->flag[1] > (int)f->size ||
-		f->flag[13] == 1)
-		return (ft_flags_int(f, begin_lst));
-	ft_multibuf_arg(f, begin_lst, f->size);
-	free(f->arg);
+	e->a = ft_dispatcher(f, ap, begin_lst);
+	if (f->free == 1)
+		free(f->arg);
+	if (e->a == -1)
+		return (-1);
+	e->i += f->i;
+	return (0);
+}
+
+int		ft_error_copy(t_err *e, const char *format, t_list **begin_lst)
+{
+	e->a = (int)ft_booster(format, e->i, begin_lst) - 1;
+	if (e->a < 0)
+		return (-1);
+	else
+		e->i = (size_t)e->a;
 	return (0);
 }

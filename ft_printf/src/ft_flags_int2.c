@@ -18,22 +18,15 @@ int		ft_flags_zero2(t_flag *f, int i, t_list **begin_lst)
 	{
 		f->arg = ft_rotcstring(f->arg);
 		ft_multibuf_nchar(begin_lst, '-', 1);
-		f->ret += 1;
 		f->size -= 1;
 	}
 	if (f->flag[2] == 1)
 	{
 		if ((f->arg[0] != '0' || f->c == 'p') && f->flag[0] != -1)
-		{
 			ft_multibuf_ox(f, begin_lst, f->x);
-			f->ret += f->x;
-		}
 	}
 	if (i > 0)
-	{
 		ft_multibuf_nchar(begin_lst, '0', i);
-		f->ret += (size_t)i;
-	}
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
 	return (ft_flags_zero3(f, begin_lst));
@@ -44,22 +37,15 @@ int		ft_flags_moins2(t_flag *f, t_list **begin_lst)
 	if (f->flag[2] == 1)
 	{
 		if ((f->arg[0] != '0' || f->c == 'p') && f->flag[0] != -1)
-		{
 			ft_multibuf_ox(f, begin_lst, f->x);
-			f->ret += f->x;
-		}
 	}
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
 	if (f->flag[13] == 1 && f->p > 0)
-	{
 		ft_multibuf_nchar(begin_lst, '0', f->p);
-		f->ret += f->p;
-	}
 	if (f->flag[0] != -1)
 	{
 		ft_multibuf_arg(f, begin_lst, f->size);
-		f->ret += f->size;
 		free(f->arg);
 	}
 	return (0);
@@ -70,18 +56,12 @@ int		ft_flags_plus2(t_flag *f, t_list **begin_lst)
 	if (f->flag[2] == 1)
 	{
 		if ((f->arg[0] != '0' || f->c == 'p') && f->flag[0] != -1)
-		{
 			ft_multibuf_ox(f, begin_lst, f->x);
-			f->ret += f->x;
-		}
 	}
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
 	if (f->flag[13] == 1 && f->p > 0)
-	{
 		ft_multibuf_nchar(begin_lst, '0', f->p);
-		f->ret += f->p;
-	}
 	ft_flags_plus3(f, begin_lst);
 	return (0);
 }
@@ -92,12 +72,8 @@ int		ft_flags_plus3(t_flag *f, t_list **begin_lst)
 	{
 		if (f->c == 'd' && f->format[f->i - 1] == ' ' &&
 			f->format[f->i - 2] == '%' && f->arg[0] != '-')
-		{
 			ft_multibuf_nchar(begin_lst, ' ', 1);
-			f->ret += 1;
-		}
 		ft_multibuf_arg(f, begin_lst, f->size);
-		f->ret += f->size;
 		free(f->arg);
 	}
 	return (0);
@@ -111,16 +87,12 @@ int		ft_flags_int2(t_flag *f, t_list **begin_lst)
 		ft_multibuf_nchar(begin_lst, '-', 1);
 		f->p += 1;
 		f->size -= 1;
-		f->ret += 1;
 	}
 	if (f->flag[2] == 1)
 	{
 		if ((f->arg[0] != '0' && f->flag[0] != -1) ||
 			f->c == 'p' || f->c == 'o')
-		{
 			ft_multibuf_ox(f, begin_lst, f->x);
-			f->ret += f->x;
-		}
 	}
 	if (f->c == 'X')
 		ft_capitalizer(f->arg);
