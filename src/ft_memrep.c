@@ -1,9 +1,7 @@
 #include "../include/ft_ls.h"
 
-t_elem	*ft_lstcpy_inelem(struct dirent *d, struct stat *stat, t_elem *elem)
+t_elem	*ft_lstcpy_inelem(struct stat *stat, t_elem *elem)
 {
-	elem->d_name = d->d_name;
-	elem->d_namlen = d->d_namlen;
 	elem->st_dev = stat->st_dev;
 	elem->st_mode = stat->st_mode;
 	elem->st_nlink = stat->st_nlink;
@@ -19,7 +17,8 @@ t_elem	*ft_lstcpy_inelem(struct dirent *d, struct stat *stat, t_elem *elem)
 	return (elem);
 }
 
-t_elem	*ft_getstat(struct dirent *d, struct stat *stat, t_elem **elem)
+t_elem	*ft_getstat(struct dirent *d, struct stat *stat,
+			t_elem **elem, chr *str)
 {
 	t_elem *elem;
 
@@ -38,23 +37,23 @@ t_elem	*ft_getstat(struct dirent *d, struct stat *stat, t_elem **elem)
 		perror("error stat fonction !\n");
 		exite(EXIT_FAILURE);
 	}
-	elem = ft_lstcpy_inelem(d, stat);
+	elem = ft_lstcpy_inelem(stat, str);
 	return (elem);
 }
 
-void	ft_memrep(struct dirent *d, DIR *dir)
+void	ft_memrep(struct dirent *d, DIR *dir, char *str)
 {
 	struct stat	stat;
 	t_elem		*elem;
 	t_elem		*save;
 
 	d = readdir(dir);
-	elem = ft_getstat(d, &stat);
+	elem = ft_getstat(d, &stat, str);
 	save = elem;
 	while ((d = readdir(dir)) != NULL)
 	{
 		elem = elem->next;
-		elem = ft_getstat(d, &stat);
+		elem = ft_getstat(d, &stat, str);
 	}
 	elem->next = NULL;
 	elem = save;
