@@ -7,8 +7,10 @@ int		ft_check_opt(char *str, t_opt *opt)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == 'r')
-			opt->r = 1;
+		if (str[i] == 'f')
+			opt->f = 1;
+		if (str[i] == 't')
+			opt->t = 1;
 		if (str[i] == 'G')
 			opt->up_g = 1;
 		if (str[i] == 'a')
