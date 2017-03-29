@@ -1,12 +1,12 @@
 #include "../include/ft_ls.h"
 
-void	ft_trirep_f(t_elem **elem)
+void	ft_reverse_order(t_elem **elem)
 {
 	int		i[2];
 	t_list	*rev;
 	t_list	*save;
-	t_list	*tmp;
 
+	i[0] = 0;
 	save = *elem;
 	rev = *elem;
 	while (rev != NULL)
@@ -14,10 +14,19 @@ void	ft_trirep_f(t_elem **elem)
 		rev = rev->next;
 		i[0]++;
 	}
-	while (i[1] < (i[0] / 2))
+	while (--i[0] != 0)
 	{
-		if (*elem->)
+		i[1] = 0;
+		while (i[1] == i[0])
+		{
+			*elem = *elem->next;
+			i[1]++;
+		}
+		rev->next = *elem;
+		*elem = save;
 	}
+	rev->next = NULL;
+	elem = &rev;
 }
 
 void	ft_trirep_t(t_elem **elem)
@@ -83,7 +92,7 @@ void	ft_trirep_ascii(t_elem **elem)
 	*elem = save;
 }
 
-int	ft_trirep(t_elem **elem, t_opt *opt)
+void	ft_trirep(t_elem **elem, t_opt *opt)
 {
 	if (opt->f == 1)
 		a = 1;
@@ -95,5 +104,4 @@ int	ft_trirep(t_elem **elem, t_opt *opt)
 		ft_trirep_ascii(elem);
 	if (opt->r == 1)
 		ft_reverse_order(elem);
-	return (0);
 }

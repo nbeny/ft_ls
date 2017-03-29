@@ -13,23 +13,30 @@ t_opt	*ft_init_opt(t_opt *opt)
 	return (opt);
 }
 
-int		ft_ls(char *str)
+int		ft_ls(char *str, t_opt *opt)
 {
 	struct dirent	*d;
-	t_elem				*el;
-	DIR				*dir;
+	t_elem			*el;
+	t_elem			*save;
+	DIR			*dir;
 
 	dir = opendir(str);
 	if (dir == NULL)
 	{
-		perror("Error ! Unable to open directory.\n");
-		exit(EXIT_FAILURE);
+		perror("ls: No sush file or directory\n");
+		return (-1);
 	}
 	el = ft_memrep(d, dir);
-	ft_trirep(&el);
-	ft_print(&el);
-	if (opt->up_r && ft_isrep(el) && ft_newstr(str))
-		ft_ls(str);
+	ft_trirep(&el, opt);
+	ft_print(&el, opt);
+	save = el;
+	while (el != NULL)
+	{
+		if (opt->up_r && ft_isrep(&el))
+			ft_ls(ft_newstr(str), opt);
+		el = el->next;
+	}
+	el = save;
 	ft_freestyle(el);
 	closedir(dir);
 	return (0);
@@ -49,7 +56,7 @@ int		main(int ac, char **av)
 	}
 	opt = ft_init_opt(opt);
 	if (ac == 1)
-		ft_ls(".");
+		ft_ls(".", opt);
 	while (av[++i[0]] != NULL)
 	{
 		if (av[i[0]][0] == '-')
@@ -58,10 +65,10 @@ int		main(int ac, char **av)
 			i[1] += 1;
 		}
 		else
-			ft_ls(av[i[0]]);
+			ft_ls(av[i[0]], opt);
 	}
 	printf("[%i][%i]\n", i[0], i[1]);
 	if (i[1] == i[0] && ac != 1)
-		ft_ls(".");
+		ft_ls(".", opt);
 	return (0);
 }

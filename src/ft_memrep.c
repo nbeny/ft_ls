@@ -1,11 +1,26 @@
 #include "../include/ft_ls.h"
 
-t_elem	*ft_memrep(struct dirent *d, DIR *dir)
+t_elem	*ft_lstcpy_inelem(struct stat *stat, t_elem *elem)
 {
-	struct stat	stat;
-	t_elem		*save;
+	elem->st_dev = stat->st_dev;
+	elem->st_mode = stat->st_mode;
+	elem->st_nlink = stat->st_nlink;
+	elem->st_uid = stat->st_uid;
+	elem->st_gid = stat->st_gid;
+	elem->st_rdev = stat->st_rdev;
+	elem->st_atimespec = stat->st_atimespec;
+	elem->st_mtimespec = stat->st_mtimespec;
+	elem->st_ctimespec = stat->st_ctimespec;
+	elem->st_birthtimespec = stat->st_birthtimespec;
+	elem->st_size = stat->st_size;
+	elem->st_blocks = stat->st_blocks;
+	return (elem);
+}
 
-	d = readdir(dir);
+t_elem	*ft_getstat(struct dirent *d, struct stat *stat, t_elem **elem)
+{
+	t_elem *elem;
+
 	if (d = NULL)
 	{
 		perror("error ! Unable to read files.\n");
@@ -13,41 +28,31 @@ t_elem	*ft_memrep(struct dirent *d, DIR *dir)
 	}
 	if (!(elem = (t_elem *)malloc(sizeof(t_elem))))
 	{
-		perror("error ! unable to malloc first structure elem.\n");
+		perror("error ! unable to malloc structures elems.\n");
 		exit(EXIT_FAILURE);
 	}
-	if (stat(d->d_name, &stat) == -1)
+	if (stat(d->d_name, stat) == -1)
 	{
 		perror("error stat fonction !\n");
 		exite(EXIT_FAILURE);
 	}
-	elem = ft_lstcpy_inelem(&stat);
+	elem = ft_lstcpy_inelem(stat);
+	return (elem);
+}
+
+void	ft_memrep(struct dirent *d, DIR *dir)
+{
+	struct stat	stat;
+	t_elem		*elem;
+	t_elem		*save;
+
+	d = readdir(dir);
+	elem = ft_getstat(d, &stat);
 	save = elem;
 	while ((d = readdir(dir)) != NULL)
 	{
-		if (d = NULL)
-		{
-			perror("error ! Unable to read files.\n");
-			exit(EXIT_FAILURE);
-		}
-		if (!(elem->next = (t_elem *)malloc(sizeof(t_elem))))
-		{
-			perror("error ! unable to malloc structures elems.\n");
-			exit(EXIT_FAILURE);
-		}
 		elem = elem->next;
-		d = readdir(dir);
-		if (d = NULL)
-		{
-			perror("error ! Unable to read files.\n");
-			exit(EXIT_FAILURE);
-		}
-		if (stat(d->d_name, &stat) == -1)
-		{
-			perror("error stat fonction !\n");
-			exite(EXIT_FAILURE);
-		}
-		elem = ft_lstcpy_inelem(&stat);
+		elem = ft_getstat(d, &stat);
 	}
 	elem->next = NULL;
 	elem = save;
