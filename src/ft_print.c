@@ -19,41 +19,63 @@ void	ft_lprint(t_elem **elem, t_opt *opt)
 
 	ft_putchar(*elem.st_mode & S_IRUSR ? 'r' : '-');
 	ft_putchar(*elem.st_mode & S_IWUSR ? 'w' : '-');
-	fprintf(*elem.st_mode & S_IXUSR ? 'x' : '-');
-	fprintf(*elem.st_mode & S_IRGRP ? 'r' : '-');
-	fprintf(*elem.st_mode & S_IWGRP ? 'w' : '-');
-	fprintf(*elem.st_mode & S_IXGRP ? 'x' : '-');
-	fprintf(*elem.st_mode & S_IROTH ? 'r' : '-');
-	fprintf(*elem.st_mode & S_IWOTH ? 'w' : '-');
-	fprintf(*elem.st_mode & S_IXOTH ? 'x' : '-');
-	fprintf(stderr,"\t%hu",status.st_nlink);
+	ft_putchar(*elem.st_mode & S_IXUSR ? 'x' : '-');
+	ft_putchar(*elem.st_mode & S_IRGRP ? 'r' : '-');
+	ft_putchar(*elem.st_mode & S_IWGRP ? 'w' : '-');
+	ft_putchar(*elem.st_mode & S_IXGRP ? 'x' : '-');
+	ft_putchar(*elem.st_mode & S_IROTH ? 'r' : '-');
+	ft_putchar(*elem.st_mode & S_IWOTH ? 'w' : '-');
+	ft_putchar(*elem.st_mode & S_IXOTH ? 'x' : '-');
 
-	if ((pwd = getpwuid(status.st_uid)) != NULL)
-		fprintf(stderr,"\t%s", pwd->pw_name);
-	if ((grp = getgrgid(status.st_gid)) != NULL)
-		fprintf(stderr,"\t%s", grp->gr_name);
+	
+	ft_printf("  %*hu", i[0], *elem.st_nlink);
+	ft_printf(" %*s", i[1], *elem->pw_name);
+	ft_printf("  %*s", i[2], *elem->gr_name);
+	ft_printf("  %*lld", i[3], *elem->st_size);
+	ft_printf(" %-24.24s ", ctime(elem->st_mtimespec));
 
-	fprintf(stderr,"\t%lld",status.st_size);
-	fflush(stdin);
-	fprintf(stderr,"\t%-24.24s\t",ctime(&status.st_mtime));
-	fflush(stdin);
-
-	if((ptdir=opendir(nom)) != NULL)
+	if ((ptdir = opendir(nom)) != NULL)
 		{
-			couleur("34" );
-			fprintf(stderr,"%s\n",nom);
-			couleur("0" );
+			couleur("34");
+			ft_printf("%s\n", *elem->d_name);
+			couleur("0");
 		}
-	else if (S_ISREG(status.st_mode ) && status.st_mode & 0111)
+	else if (S_ISREG(status.st_mode) && status.st_mode & 0111)
 		{
-			couleur("32" );
-			fprintf(stderr,"%s\n",nom);
-			couleur("0" );
+			couleur("32");
+			ft_printf("%s\n", *elem->d_name);
+			couleur("0");
 		}
 	/* ((status.st_mode & S_IFMT) != S_IFREG) : .exe */
 
 	else
-		fprintf(stderr,"%s\n",nom);
+		ft_printf("%s\n", nom);
+}
+
+void	ft_checkall_size(t_elem **elem)
+{
+	t_elem	*save;
+	char	*nlink;
+	char	*size;
+
+	save = *elem;
+	while (*elem != NULL)
+	{
+		nlink = ft_itoa(*elem->st_nlink);
+		size = ft_itoa(*elem->st_size);
+		if (ft_strlen(nlink) > *elem->i[0])
+			*elem->i[0] = ft_strlen(nlink);
+		if (ft_strlen(*elem->pw_name) > *elem->i[1])
+			*elem->i[1] = ft_strlen(*elem->pw_name);
+		if (ft_strlen(*elem->pw_name) > *elem->i[2])
+			*elem->i[2] = ft_strlen(*elem->gr_name);
+		if (ft_strlen(size) > *elem->i[3])
+			*elem->i[3] = ft_strlen(size);
+		free(nlink);
+		free(size);
+		*elem = *elem->next;
+	}
+	*elem = save;
 }
 
 void	ft_no_optprint(t_elem **elem, t_opt *opt)
@@ -83,7 +105,10 @@ void	ft_no_optprint(t_elem **elem, t_opt *opt)
 	while (*elem->next != NULL)
 	{
 		if (opt->l == 1)
+		{
+			ft_checkall_size(elem);
 			ft_lprint(elem, opt);
+		}
 		else
 			ft_no_optprint(elem, opt);
 		*elem = *elem->next;

@@ -1,26 +1,7 @@
 #include "../include/ft_ls.h"
 
-t_elem	*ft_lstcpy_inelem(struct dirent *d, struct stat *stat, t_elem *elem)
+t_elem	*ft_lstcpy_inelem(struct stat *stat, t_elem *elem)
 {
-	struct passwd	*pwd;
-	struct group	*grp;
-
-	pwd = getpwuid(stat->st_uid);
-	if (pwd == NULL)
-	{
-		perror("error ! Unable to malloc structure pwd.\n");
-		exit(EXIT_FAILURE);
-	}
-	grp = getgrgid(stat->st_gid);
-	if(grp == NULL)
-	{
-		perror("error ! Unable to malloc structure grp.\n");
-		exit(EXIT_FAILURE);
-	}
-	elem->d_name = d->d_name;
-	elem->d_namlen = d->d_namlen;
-	elem->pw_name = pwd->pw_name;
-	elem->gr_name = grp->gr_name;
 	elem->st_dev = stat->st_dev;
 	elem->st_mode = stat->st_mode;
 	elem->st_nlink = stat->st_nlink;
@@ -36,42 +17,43 @@ t_elem	*ft_lstcpy_inelem(struct dirent *d, struct stat *stat, t_elem *elem)
 	return (elem);
 }
 
-t_elem	*ft_getstat(struct dirent *d, struct stat *stat)
+t_elem	*ft_getstat(struct dirent *d, struct stat *stat,
+			t_elem **elem, chr *str)
 {
 	t_elem *elem;
 
 	if (d = NULL)
 	{
-		perror("error ! Unable to read file.\n");
+		perror("error ! Unable to read files.\n");
 		exit(EXIT_FAILURE);
 	}
 	if (!(elem = (t_elem *)malloc(sizeof(t_elem))))
 	{
-		perror("error ! unable to malloc structure elem.\n");
+		perror("error ! unable to malloc structures elems.\n");
 		exit(EXIT_FAILURE);
 	}
 	if (stat(d->d_name, stat) == -1)
 	{
 		perror("error stat fonction !\n");
-		exit(EXIT_FAILURE);
+		exite(EXIT_FAILURE);
 	}
-	elem = ft_lstcpy_inelem(d, stat, elem);
+	elem = ft_lstcpy_inelem(stat, str);
 	return (elem);
 }
 
-void	ft_memrep(struct dirent *d, DIR *dir)
+void	ft_memrep(struct dirent *d, DIR *dir, char *str)
 {
 	struct stat	stat;
 	t_elem		*elem;
 	t_elem		*save;
 
 	d = readdir(dir);
-	elem = ft_getstat(d, &stat);
+	elem = ft_getstat(d, &stat, str);
 	save = elem;
 	while ((d = readdir(dir)) != NULL)
 	{
 		elem = elem->next;
-		elem = ft_getstat(d, &stat);
+		elem = ft_getstat(d, &stat, str);
 	}
 	elem->next = NULL;
 	elem = save;

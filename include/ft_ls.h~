@@ -32,8 +32,6 @@ typedef struct	s_elem
 {
 	char			d_name[255];
 	__uint8_t		d_namlen;
-	char			*pw_name;
-	char			*gr_name;
 	dev_t			st_dev;		/* ID of device containing file */
 	mode_t			st_mode;	/* Mode of file (see below) */
 	nlink_t			st_nlink;	/* Number of hard links */
@@ -46,9 +44,7 @@ typedef struct	s_elem
 	struct timespec	st_birthtimespec;	/* time of file creation(birth) */
 	off_t			st_size;	/* file size, in bytes */
 	blkcnt_t		st_blocks;	/* blocks allocated for file */	
-	size_t			i[4];
 	struct s_elem	*next;
-	struct s_elem	*previous;
 }				t_elem;
 
 /*
