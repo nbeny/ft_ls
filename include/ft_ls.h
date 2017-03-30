@@ -25,6 +25,7 @@ typedef struct	s_opt
 	int	t;
 	int	u;
 	int	up_g;
+	int	r_rep;
 }				t_opt;
 
 typedef struct	s_elem

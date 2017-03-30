@@ -9,6 +9,7 @@ t_opt	*ft_init_opt(t_opt *opt)
 	opt->t = 0;
 	opt->u = 0;
 	opt->up_g = 0;
+	opt->r_rep;
 	return (opt);
 }
 
