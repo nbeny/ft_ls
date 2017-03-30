@@ -1,5 +1,12 @@
 #include "../include/ft_ls.h"
 
+void	ft_check_error(void)
+{
+	perror("ls: illegal option --\n");
+	perror("usage: ls [-RlrftuG] [file ...]\n");
+	exit(EXIT_FAILURE);	
+}
+
 int		ft_check_opt(char *str, t_opt *opt)
 {
 	int	i;
@@ -22,11 +29,7 @@ int		ft_check_opt(char *str, t_opt *opt)
 		else if (str[i] == 'G')
 			opt->up_g = 1;
 		else
-		{
-			perror("ls: illegal option --\n");
-			perror("usage: ls [-RlrftuG] [file ...]\n");
-			exit(EXIT_FAILURE);
-		}
+			ft_check_error();
 		i++;
 	}
 	return (i);

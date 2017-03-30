@@ -48,6 +48,7 @@ typedef struct	s_elem
 	blkcnt_t		st_blocks;	/* blocks allocated for file */	
 	size_t			i[4];
 	struct s_elem	*next;
+	struct s_elem	*previous;
 }				t_elem;
 
 /*

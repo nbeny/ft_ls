@@ -2,53 +2,38 @@
 
 void	ft_lprint(t_elem **elem, t_opt *opt)
 {
-	if(S_ISBLK(*elem.st_mode))
+	if(S_ISBLK(*elem->st_mode))
 		ft_putchar('b');
-	else if(S_ISCHR(*elem.st_mode))
+	else if(S_ISCHR(*elem->st_mode))
 		ft_putchar('c');
-	else if(S_ISDIR(*elem.st_mode))
+	else if(S_ISDIR(*elem->st_mode))
 		ft_putchar('d');
-	else if(S_ISFIFO(*elem.st_mode))
+	else if(S_ISFIFO(*elem->st_mode))
 		ft_putchar('p');
-	else if(S_ISLNK(*elem.st_mode))
+	else if(S_ISLNK(*elem->st_mode))
 		ft_putchar('l');
-	else if(S_ISREG(*elem.st_mode))
+	else if(S_ISREG(*elem->st_mode))
 		ft_putchar('-');
-	else if(S_ISSOCK(*elem.st_mode))
+	else if(S_ISSOCK(*elem->st_mode))
 		ft_putchar('s');
 
-	ft_putchar(*elem.st_mode & S_IRUSR ? 'r' : '-');
-	ft_putchar(*elem.st_mode & S_IWUSR ? 'w' : '-');
-	ft_putchar(*elem.st_mode & S_IXUSR ? 'x' : '-');
-	ft_putchar(*elem.st_mode & S_IRGRP ? 'r' : '-');
-	ft_putchar(*elem.st_mode & S_IWGRP ? 'w' : '-');
-	ft_putchar(*elem.st_mode & S_IXGRP ? 'x' : '-');
-	ft_putchar(*elem.st_mode & S_IROTH ? 'r' : '-');
-	ft_putchar(*elem.st_mode & S_IWOTH ? 'w' : '-');
-	ft_putchar(*elem.st_mode & S_IXOTH ? 'x' : '-');
+	ft_putchar(*elem->st_mode & S_IRUSR ? 'r' : '-');
+	ft_putchar(*elem->st_mode & S_IWUSR ? 'w' : '-');
+	ft_putchar(*elem->st_mode & S_IXUSR ? 'x' : '-');
+	ft_putchar(*elem->st_mode & S_IRGRP ? 'r' : '-');
+	ft_putchar(*elem->st_mode & S_IWGRP ? 'w' : '-');
+	ft_putchar(*elem->st_mode & S_IXGRP ? 'x' : '-');
+	ft_putchar(*elem->st_mode & S_IROTH ? 'r' : '-');
+	ft_putchar(*elem->st_mode & S_IWOTH ? 'w' : '-');
+	ft_putchar(*elem->st_mode & S_IXOTH ? 'x' : '-');
 
-	
-	ft_printf("  %*hu", i[0], *elem.st_nlink);
-	ft_printf(" %*s", i[1], *elem->pw_name);
-	ft_printf("  %*s", i[2], *elem->gr_name);
-	ft_printf("  %*lld", i[3], *elem->st_size);
-	ft_printf(" %-24.24s ", ctime(elem->st_mtimespec));
+	ft_printf("  %*hu", *elem->i[0], *elem->st_nlink);
+	ft_printf(" %*s", *elem->i[1], *elem->pw_name);
+	ft_printf("  %*s", *elem->i[2], *elem->gr_name);
+	ft_printf("  %*lld", *elem->i[3], *elem->st_size);
+	ft_printf(" %-24.24s", ctime(*elem->st_mtimespec));
 
-	if ((opendir(*elem->d_name)) != NULL)
-		{
-			couleur("34");
-			ft_printf("%s\n", *elem->d_name);
-			couleur("0");
-		}
-	else if (S_ISREG(*elem.st_mode) && *elem.st_mode & 0111)
-		{
-			couleur("32");
-			ft_printf("%s\n", *elem->d_name);
-			couleur("0");
-		}
-	/* ((status.st_mode & S_IFMT) != S_IFREG) : .exe */
-	else
-		ft_printf("%s\n", *elem->d_name);
+	ft_printf(" %s\n", *elem->d_name);
 }
 
 void	ft_checkall_size(t_elem **elem)
