@@ -34,22 +34,21 @@ void	ft_lprint(t_elem **elem, t_opt *opt)
 	ft_printf("  %*lld", i[3], *elem->st_size);
 	ft_printf(" %-24.24s ", ctime(elem->st_mtimespec));
 
-	if ((ptdir = opendir(nom)) != NULL)
+	if ((opendir(*elem->d_name)) != NULL)
 		{
 			couleur("34");
 			ft_printf("%s\n", *elem->d_name);
 			couleur("0");
 		}
-	else if (S_ISREG(status.st_mode) && status.st_mode & 0111)
+	else if (S_ISREG(*elem.st_mode) && *elem.st_mode & 0111)
 		{
 			couleur("32");
 			ft_printf("%s\n", *elem->d_name);
 			couleur("0");
 		}
 	/* ((status.st_mode & S_IFMT) != S_IFREG) : .exe */
-
 	else
-		ft_printf("%s\n", nom);
+		ft_printf("%s\n", *elem->d_name);
 }
 
 void	ft_checkall_size(t_elem **elem)
@@ -83,7 +82,7 @@ void	ft_no_optprint(t_elem **elem, t_opt *opt)
 	if (*elem->d_name[0] != '.' || opt->a == 1 ||
 		(opt->up_a == 1 && (*elem->d_name[0] != '.' &&
 		*elem->d_name[1] != '\0') || (*elem->d_name[0] != '.' &&
-		*elem->d_name[1] != '.' && *elem->d_name[2] != '\0'))
+		*elem->d_name[1] != '.' && *elem->d_name[2] != '\0')))
 	{
 		if (*elem->d_namlen <= 255)
 			ft_putnstr(*elem->d_name, *elem->d_namlen);
@@ -93,7 +92,7 @@ void	ft_no_optprint(t_elem **elem, t_opt *opt)
 	ft_putchar('\n');
 }
 
-	void	ft_print(t_elem **elem, t_opt *opt, char *str)
+void	ft_print(t_elem **elem, t_opt *opt, char *str)
 {
 	t_elem	*save;
 
