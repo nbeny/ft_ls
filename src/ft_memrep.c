@@ -1,46 +1,62 @@
 #include "../include/ft_ls.h"
 
-t_elem	*ft_lstcpy_inelem(struct dirent *d, struct stat *stat, t_elem *elem)
+t_elem	*ft_lstcpy_inelem(struct dirent *d, t_elem *elem)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
 
-	pwd = getpwuid(stat->st_uid);
+	pwd = getpwuid(elem->st_uid);
 	if (pwd == NULL)
 	{
 		perror("error ! Unable to malloc structure pwd.\n");
 		exit(EXIT_FAILURE);
 	}
-	grp = getgrgid(stat->st_gid);
+	grp = getgrgid(elem->st_gid);
 	if(grp == NULL)
 	{
 		perror("error ! Unable to malloc structure grp.\n");
 		exit(EXIT_FAILURE);
 	}
-	elem->d_name = d->d_name;
-	elem->d_namlen = d->d_namlen;
 	elem->pw_name = pwd->pw_name;
 	elem->gr_name = grp->gr_name;
-	elem->st_dev = stat->st_dev;
-	elem->st_mode = stat->st_mode;
-	elem->st_nlink = stat->st_nlink;
-	elem->st_uid = stat->st_uid;
-	elem->st_gid = stat->st_gid;
-	elem->st_rdev = stat->st_rdev;
-	elem->st_atimespec = stat->st_atimespec;
-	elem->st_mtimespec = stat->st_mtimespec;
-	elem->st_ctimespec = stat->st_ctimespec;
-	elem->st_birthtimespec = stat->st_birthtimespec;
-	elem->st_size = stat->st_size;
-	elem->st_blocks = stat->st_blocks;
 	return (elem);
 }
 
-t_elem	*ft_getstat(struct dirent *d, struct stat *stat)
+t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str)
+{
+	struct stat	st;
+	char		*s;
+	time_t		rawtime;
+
+	elem->d_namlen = d->d_namlen;
+	ft_strncpy(elem->d_name, d->d_name, d->d_namlen);
+	s = ft_newstr_inmem(str, elem);
+	if (stat(s, &st) == -1)
+	{
+		perror("error stat fonction !\n");
+		exit(EXIT_FAILURE);
+	}
+	elem->st_dev = st.st_dev;
+	elem->st_mode = st.st_mode;
+	elem->st_nlink = st.st_nlink;
+	elem->st_uid = st.st_uid;
+	elem->st_gid = st.st_gid;
+	elem->st_rdev = st.st_rdev;
+	elem->atime = time(&st.st_atime);
+	elem->mtime = time(&st.st_mtime);
+	elem->ctime = time(&st.st_ctime);
+	elem->birthtime = time(&st.st_birthtime);
+	elem->st_size = st.st_size;
+	elem->st_blocks = st.st_blocks;
+	free(s);
+	return (elem);
+}
+
+t_elem	*ft_new_elem(struct dirent *d, char *str)
 {
 	t_elem *elem;
 
-	if (d = NULL)
+	if (d == NULL)
 	{
 		perror("error ! Unable to read file.\n");
 		exit(EXIT_FAILURE);
@@ -50,28 +66,24 @@ t_elem	*ft_getstat(struct dirent *d, struct stat *stat)
 		perror("error ! unable to malloc structure elem.\n");
 		exit(EXIT_FAILURE);
 	}
-	if (stat(d->d_name, stat) == -1)
-	{
-		perror("error stat fonction !\n");
-		exit(EXIT_FAILURE);
-	}
-	elem = ft_lstcpy_inelem(d, stat, elem);
+	elem = ft_getstat(d, elem, str);
+	elem = ft_lstcpy_inelem(d, elem);
 	return (elem);
 }
 
-void	ft_memrep(struct dirent *d, DIR *dir)
+t_elem	*ft_memrep(DIR *dir, char *str)
 {
-	struct stat	stat;
+	struct dirent	*d;
 	t_elem		*elem;
 	t_elem		*save;
 
 	d = readdir(dir);
-	elem = ft_getstat(d, &stat);
+	elem = ft_new_elem(d, str);
 	save = elem;
 	while ((d = readdir(dir)) != NULL)
 	{
 		elem = elem->next;
-		elem = ft_getstat(d, &stat);
+		elem = ft_new_elem(d, str);
 	}
 	elem->next = NULL;
 	elem = save;

@@ -57,7 +57,7 @@ $(NAME): $(OBJ)
 	@echo ">$(CL_V)Build: $(CL_VG)ft_printf$(CL_N)\n"
 	@make -C $(T_PFT)
 	@echo ">$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)\n"
-	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(INC)
+	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(INC) $(L_LFT) $(L_PFT)
 
 $(T_OBJ)%.o: $(T_SRC)%.c
 	@echo "$(CL_V)>Creat: Objects files..$(CL_N)"

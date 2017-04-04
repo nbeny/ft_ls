@@ -2,6 +2,8 @@
 
 t_opt	*ft_init_opt(t_opt *opt)
 {
+	opt->a = 0;
+	opt->up_a = 0;
 	opt->up_r = 0;
 	opt->l = 0;
 	opt->r = 0;
@@ -9,13 +11,12 @@ t_opt	*ft_init_opt(t_opt *opt)
 	opt->t = 0;
 	opt->u = 0;
 	opt->up_g = 0;
-	opt->r_rep;
+	opt->r_rep = 0;
 	return (opt);
 }
 
 int		ft_ls(char *str, t_opt *opt)
 {
-	struct dirent	*d;
 	t_elem			*el;
 	t_elem			*save;
 	DIR			*dir;
@@ -26,14 +27,14 @@ int		ft_ls(char *str, t_opt *opt)
 		perror("ls: No such file or directory\n");
 		return (-1);
 	}
-	el = ft_memrep(d, dir);
-	ft_trirep(&el, opt);
-	ft_print(&el, opt, str);
+	el = ft_memrep(dir, str);
+	ft_trirep(el, opt);
+	ft_print(el, opt, str);
 	save = el;
 	while (el != NULL)
 	{
-		if (opt->up_r == 1 && ft_isrep(&el) == 1)
-		  ft_ls(ft_newstr(str, el), opt);
+		if (opt->up_r == 1 && ft_isrep(el) == 1)
+			ft_ls(ft_newstr(str, el), opt);
 		el = el->next;
 	}
 	el = save;
@@ -69,5 +70,7 @@ int		main(int ac, char **av)
 	}
 	if (i[1] == i[0] && ac != 1)
 		ft_ls(".", opt);
+	free(opt);
+	opt = NULL;
 	return (0);
 }

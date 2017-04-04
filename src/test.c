@@ -25,7 +25,6 @@
 
 void affiche_status (char * nom)
 {
-
 	struct stat status;
 	struct passwd *pwd;
 	struct group  *grp;
