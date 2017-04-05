@@ -88,17 +88,17 @@ $(NAME): $(OBJ)
 		@ranlib $(NAME)
 
 $(T_OBJ)%.o: $(T_SRC)%.c
-		@echo "$(CL_V)>Creat: Objects files..$(CL_N)"
+		@echo ">$(CL_V)Creat: Objects files..$(CL_N)"
 		@mkdir -p $(T_OBJ)
 		@$(CC) $(CC_FLAG) -o $@ -c $^ $(INC)
 
 clean:
-		@echo "$(CL_R)>clean: $(CL_B)$(NAME) objects$(CL_N)"
+		@echo ">$(CL_R)clean: $(CL_B)$(NAME) objects$(CL_N)"
 		@rm -f $(OBJ)
 		@rm -Rf $(T_OBJ)
 
 fclean: clean
-		@echo "$(CL_R)>Delete: $(CL_B)$(NAME)$(CL_N)"
+		@echo ">$(CL_R)Delete: $(CL_B)$(NAME)$(CL_N)"
 		@rm -f $(NAME)
 
 re: fclean all

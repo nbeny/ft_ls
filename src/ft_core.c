@@ -31,12 +31,14 @@ int		ft_ls(char *str, t_opt *opt)
 	ft_trirep(el, opt);
 	ft_print(el, opt, str);
 	save = el;
-	while (el != NULL)
-	{
-		if (opt->up_r == 1 && ft_isrep(el) == 1)
-			ft_ls(ft_newstr(str, el), opt);
-		el = el->next;
-	}
+	if (opt->up_r == 1)
+		while (el != NULL)
+		{
+			if (ft_isrep(el) == 1 && ft_strcmp(".", el->d_name) &&
+				ft_strcmp("..", el->d_name))
+				ft_ls(ft_newstr(str, el), opt);
+			el = el->next;
+		}
 	el = save;
 	ft_freestyle(el);
 	closedir(dir);

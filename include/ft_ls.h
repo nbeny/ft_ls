@@ -18,16 +18,17 @@
 
 typedef struct	s_opt
 {
-	int	a;
-	int	up_a;
-	int	up_r;
-	int	l;
-	int	r;
-	int	f;
-	int	t;
-	int	u;
-	int	up_g;
-	int	r_rep;
+	int		a;
+	int		up_a;
+	int		up_r;
+	int		l;
+	int		r;
+	int		f;
+	int		t;
+	int		u;
+	int		up_g;
+	int		r_rep;
+  size_t		i[4];
 }				t_opt;
 
 typedef struct	s_elem
@@ -48,7 +49,6 @@ typedef struct	s_elem
 	time_t		birthtime;		/* time of file creation(birth) */
 	off_t		st_size;		/* file size, in bytes */
 	blkcnt_t	st_blocks;		/* blocks allocated for file */	
-	size_t		i[4];
 	struct s_elem	*next;
 }				t_elem;
 
@@ -63,7 +63,7 @@ t_opt	*ft_init_opt(t_opt *opt);
 */
 t_elem	*ft_memrep(DIR *dir, char *str);
 t_elem  *ft_new_elem(struct dirent *d, char *str);
-t_elem	*ft_lstcpy_inelem(struct dirent *d, t_elem *elem);
+t_elem	*ft_lstcpy_inelem(t_elem *elem);
 t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str);
 /*
 **trirep
@@ -78,8 +78,9 @@ void	ft_reverse_order(t_elem *elem);
 */
 void	ft_print(t_elem *elem, t_opt *opt, char *str);
 void	ft_no_optprint(t_elem *elem, t_opt *opt);
-void	ft_checkall_size(t_elem *elem);
+void	ft_checkall_size(t_elem *elem, t_opt *opt);
 void	ft_lprint(t_elem *elem, t_opt *opt);
+void	ft_print_time(t_elem *elem, t_opt *opt);
 /*
 **usefull
 */

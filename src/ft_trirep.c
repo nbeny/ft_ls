@@ -56,7 +56,7 @@ void	ft_trirep_u(t_elem *elem)
 	t_elem  *tmp;
 
 	save = elem;
-	while (lst->next != NULL)
+	while (elem->next != NULL)
 	{
 		if (elem->atime > elem->next->atime)
 		{
@@ -95,7 +95,7 @@ void	ft_trirep_ascii(t_elem *elem)
 void	ft_trirep(t_elem *elem, t_opt *opt)
 {
 	if (opt->f == 1)
-		a = 1;
+		opt->a = 1;
 	else if (opt->t == 1 && opt->u != 1)
 		ft_trirep_t(elem);
 	else if (opt->u == 1 && opt->t == 1)

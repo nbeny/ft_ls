@@ -1,24 +1,23 @@
-
 NAME	=	ft_ls
 
 N_INC	=	ft_ls.h
 N_SRC	=	ft_check.c	ft_core.c\
-		ft_memrep.c
+		ft_memrep.c	ft_print.c\
+		ft_tools.c	ft_trirep.c
 
 CC	=	gcc
-CC_FLAG	=	-Wall -Wextra -Werror
+CC_FLAG	=	-g -Wall -Wextra -Werror
 
 T_SRC	=	./src/
-T_INC	=	./includes/
+T_INC	=	./include/
 T_OBJ	=	./obj/
-T_LFT	=	libft/
-T_PTF	=	ft_printf/
+T_PTF	=	./ft_printf/
 
-I_INC	=	./includes/
-I_LFT	=	./libft/includes
-I_PFT	=	./ft_printf/includes
-L_LFT	=	-L ./libft/ -lft
-L_PFT	=	-L ./ft_printf/ -lftprintf
+I_INC	=	./include/
+I_LFT	=	./libft/include/
+I_PTF	=	./ft_printf/include/
+L_LFT	=	-L ./ft_printf/libft/ -lft
+L_PTF	=	-L ./ft_printf/ -lftprintf
 
 CL_N	=	\033[0m
 CL_R	=	\033[31m
@@ -43,7 +42,7 @@ CL_CG	=	\033[36;1m
 
 SRC	=	$(addprefix $(T_SRC), $(N_SRC))
 OBJ	=	$(addprefix $(T_OBJ), $(N_OBJ))
-INC	=	$(addprefix -I, $(I_INC) $(I_LFT) $(I_PFT))
+INC	=	$(addprefix -I, $(I_INC) $(I_LFT) $(I_PTF))
 
 N_OBJ	=	$(N_SRC:.c=.o)
 
@@ -52,32 +51,24 @@ N_OBJ	=	$(N_SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo ">$(CL_V)Build: $(CL_VG)libft$(CL_N)\n"
-	@make -C $(T_LFT)
-	@echo ">$(CL_V)Build: $(CL_VG)ft_printf$(CL_N)\n"
-	@make -C $(T_PFT)
-	@echo ">$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)\n"
-	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(INC) $(L_LFT) $(L_PFT)
+	@echo ">$(CL_V)Build: $(CL_VG)ft_printf$(CL_N)"
+	@make -C $(T_PTF)
+	@echo ">$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)"
+	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(L_LFT) $(L_PTF)
 
 $(T_OBJ)%.o: $(T_SRC)%.c
-	@echo "$(CL_V)>Creat: Objects files..$(CL_N)"
+	@echo ">$(CL_V)Creat: Objects files..$(CL_N)"
 	@mkdir -p $(T_OBJ)
 	@$(CC) $(CC_FLAG) -o $@ -c $^ $(INC)
 
 clean:
-	@echo "$(CL_R)>clean: $(CL_B)$(NAME) objects$(CL_N)\n"
-	@rm -rf $(T_OBJ)
-	@echo "$(CL_R)>clean: $(CL_B)libft objects$(CL_N)\n"
-	@make -C $(T_LFT) clean
-	@echo "$(CL_R)>clean: $(CL_B)printf objects$(CL_N)\n"
-	@make -C $(T_PFT) clean
+	@echo ">$(CL_R)clean: $(CL_B)$(NAME) objects$(CL_N)"
+	@rm -Rf $(T_OBJ)
+	@make -C $(T_PTF) clean
 
 fclean: clean
-	@echo "$(CL_R)>Delete: $(CL_B)$(NAME)$(CL_N)\n"
+	@make -C $(T_PTF) fclean
+	@echo ">$(CL_R)Delete: $(CL_B)$(NAME)$(CL_N)"
 	@rm -f $(NAME)
-	@echo "$(CL_R)>Delete: $(CL_B)libft$(CL_N)\n"
-	@make -C $(T_LFT) fclean
-	@echo "$(CL_R)>Delete: $(CL_B)ft_printf$(CL_N)\n"
-	@make -C $(T_PFT) fclean
 
 re: fclean all

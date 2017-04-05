@@ -36,7 +36,7 @@ int		ft_check_opt(char *str, t_opt *opt)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (str[i])
 	{
 		ft_getopt(str, opt, i);

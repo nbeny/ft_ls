@@ -42,6 +42,7 @@ T_LFT	=	./libft/
 
 I_INC	=	./include/
 I_LFT	=	./libft/include/
+L_LFT	=	-L ./ft_printf/ -lftprintf
 
 CL_N	=	\033[0m
 CL_R	=	\033[31m
@@ -75,7 +76,6 @@ N_OBJ	=	$(N_SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		@echo "\n>$(CL_V)Build: $(CL_VG)libft$(CL_N)"
 		@make -C $(T_LFT)
 		@echo "\n>$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)"
 		@ar rc $(NAME) $(OBJ)
@@ -83,21 +83,19 @@ $(NAME): $(OBJ)
 		@ranlib $(NAME)
 
 $(T_OBJ)%.o: $(T_SRC)%.c
-		@echo "$(CL_V)>Creat: Objects files..$(CL_N)"
+		@echo ">$(CL_V)Creat: Objects files..$(CL_N)"
 		@mkdir -p $(T_OBJ)
-		@$(CC) $(CC_FLAG) $(L_LFT) -o $@ -c $^ $(INC)
+		@$(CC) $(CC_FLAG) -o $@ -c $^ $(INC)
 
 clean:
-		@echo "$(CL_R)>clean: $(CL_B)libft objects$(CL_N)"
 		@make -C $(T_LFT) clean
-		@echo "$(CL_R)>clean: $(CL_B)$(NAME) objects$(CL_N)"
+		@echo ">$(CL_R)clean: $(CL_B)$(NAME) objects$(CL_N)"
 		@rm -f $(OBJ)
 		@rm -Rf $(T_OBJ)
 
 fclean: clean
-		@echo "\n$(CL_R)>Delete: $(CL_B)libft$(CL_N)"
-		@make -C libft/ fclean
-		@echo "$(CL_R)>Delete: $(CL_B)$(NAME)$(CL_N)"
+		@make -C $(T_LFT) fclean
+		@echo ">$(CL_R)Delete: $(CL_B)$(NAME)$(CL_N)"
 		@rm -f $(NAME)
 
 re: fclean all

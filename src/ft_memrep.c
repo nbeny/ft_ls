@@ -1,6 +1,6 @@
 #include "../include/ft_ls.h"
 
-t_elem	*ft_lstcpy_inelem(struct dirent *d, t_elem *elem)
+t_elem	*ft_lstcpy_inelem(t_elem *elem)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
@@ -26,10 +26,9 @@ t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str)
 {
 	struct stat	st;
 	char		*s;
-	time_t		rawtime;
 
 	elem->d_namlen = d->d_namlen;
-	ft_strncpy(elem->d_name, d->d_name, d->d_namlen);
+	ft_strcpy(elem->d_name, d->d_name);
 	s = ft_newstr_inmem(str, elem);
 	if (stat(s, &st) == -1)
 	{
@@ -67,7 +66,7 @@ t_elem	*ft_new_elem(struct dirent *d, char *str)
 		exit(EXIT_FAILURE);
 	}
 	elem = ft_getstat(d, elem, str);
-	elem = ft_lstcpy_inelem(d, elem);
+	elem = ft_lstcpy_inelem(elem);
 	return (elem);
 }
 
@@ -82,8 +81,8 @@ t_elem	*ft_memrep(DIR *dir, char *str)
 	save = elem;
 	while ((d = readdir(dir)) != NULL)
 	{
+		elem->next = ft_new_elem(d, str);
 		elem = elem->next;
-		elem = ft_new_elem(d, str);
 	}
 	elem->next = NULL;
 	elem = save;
