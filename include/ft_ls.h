@@ -28,7 +28,7 @@ typedef struct	s_opt
 	int		u;
 	int		up_g;
 	int		r_rep;
-  size_t		i[4];
+	size_t		i[4];
 }				t_opt;
 
 typedef struct	s_elem
@@ -47,6 +47,10 @@ typedef struct	s_elem
 	time_t		mtime;			/* time of last data modification */
 	time_t		ctime;			/* time of last status change */
 	time_t		birthtime;		/* time of file creation(birth) */
+	char		*atime_c;
+	char		*mtime_c;
+	char		*ctime_c;
+	char		*birthtime_c;
 	off_t		st_size;		/* file size, in bytes */
 	blkcnt_t	st_blocks;		/* blocks allocated for file */	
 	struct s_elem	*next;

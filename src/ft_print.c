@@ -27,11 +27,10 @@ void	ft_lprint(t_elem *elem, t_opt *opt)
 	ft_putchar(elem->st_mode & S_IWOTH ? 'w' : '-');
 	ft_putchar(elem->st_mode & S_IXOTH ? 'x' : '-');
 
-
-	ft_printf("  %hu", elem->st_nlink);
-	ft_printf(" %s", elem->pw_name);
-	ft_printf("  %s", elem->gr_name);
-	ft_printf("  %lld", elem->st_size);
+	ft_printf("  % *hu", opt->i[0], elem->st_nlink);
+	ft_printf(" %-*s", opt->i[1], elem->pw_name);
+	ft_printf("  %-*s", opt->i[2], elem->gr_name);
+	ft_printf("  % *lld", opt->i[3], elem->st_size);
 	ft_print_time(elem, opt);
 }
 
@@ -41,12 +40,12 @@ void	ft_print_time(t_elem *elem, t_opt *opt)
 
 	if (opt->u != 1)
 	{
-		str = ft_strsub(ctime(&elem->atime), 4, 12);
+		str = ft_strsub(elem->birthtime_c, 4, 12);
 		ft_printf(" %s ", str);
 	}
 	else
 	{
-		str = ft_strsub(ctime(&elem->mtime), 4, 12);
+		str = ft_strsub(elem->mtime_c, 4, 12);
 		ft_printf(" %s ", str);
 	}
 }
@@ -127,6 +126,7 @@ void	ft_print(t_elem *elem, t_opt *opt, char *str)
 		}
 		ft_printf("total %d\n", total);
 		elem = save;
+		ft_checkall_size(elem, opt);
 	}
 	while (elem != NULL)
 	{

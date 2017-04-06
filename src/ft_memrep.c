@@ -30,7 +30,7 @@ t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str)
 	elem->d_namlen = d->d_namlen;
 	ft_strcpy(elem->d_name, d->d_name);
 	s = ft_newstr_inmem(str, elem);
-	if (stat(s, &st) == -1)
+	if (lstat(s, &st) == -1)
 	{
 		perror("error stat fonction !\n");
 		exit(EXIT_FAILURE);
@@ -45,6 +45,10 @@ t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str)
 	elem->mtime = time(&st.st_mtime);
 	elem->ctime = time(&st.st_ctime);
 	elem->birthtime = time(&st.st_birthtime);
+	elem->atime_c = ctime(&st.st_atime);
+	elem->mtime_c = ctime(&st.st_mtime);
+	elem->ctime_c = ctime(&st.st_ctime);
+	elem->birthtime_c = ctime(&st.st_birthtime);
 	elem->st_size = st.st_size;
 	elem->st_blocks = st.st_blocks;
 	free(s);
