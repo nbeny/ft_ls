@@ -33,7 +33,8 @@ typedef struct	s_opt
 
 typedef struct	s_elem
 {
-	char		d_name[255];
+	char		*d_name;
+	char		*st_lkname;
 	__uint8_t	d_namlen;
 	char		*pw_name;
 	char		*gr_name;
@@ -52,7 +53,7 @@ typedef struct	s_elem
 	char		*ctime_c;
 	char		*birthtime_c;
 	off_t		st_size;		/* file size, in bytes */
-	blkcnt_t	st_blocks;		/* blocks allocated for file */	
+	blkcnt_t	st_blocks;		/* blocks allocated for file */
 	struct s_elem	*next;
 }				t_elem;
 
@@ -69,6 +70,7 @@ t_elem	*ft_memrep(DIR *dir, char *str);
 t_elem  *ft_new_elem(struct dirent *d, char *str);
 t_elem	*ft_lstcpy_inelem(t_elem *elem);
 t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str);
+char	*ft_set_time(time_t st_tim);
 /*
 **trirep
 */
@@ -81,7 +83,7 @@ void	ft_reverse_order(t_elem *elem);
 **print
 */
 void	ft_print(t_elem *elem, t_opt *opt, char *str);
-void	ft_no_optprint(t_elem *elem, t_opt *opt);
+void	ft_no_optprint(t_elem *elem, t_opt *opt, int i);
 void	ft_checkall_size(t_elem *elem, t_opt *opt);
 void	ft_lprint(t_elem *elem, t_opt *opt);
 void	ft_print_time(t_elem *elem, t_opt *opt);

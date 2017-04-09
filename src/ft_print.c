@@ -36,18 +36,10 @@ void	ft_lprint(t_elem *elem, t_opt *opt)
 
 void	ft_print_time(t_elem *elem, t_opt *opt)
 {
-	char *str;
-
 	if (opt->u != 1)
-	{
-		str = ft_strsub(elem->birthtime_c, 4, 12);
-		ft_printf(" %s ", str);
-	}
+		ft_printf(" %s ", elem->mtime_c);
 	else
-	{
-		str = ft_strsub(elem->mtime_c, 4, 12);
-		ft_printf(" %s ", str);
-	}
+		ft_printf(" %s ", elem->atime_c);
 }
 
 void	ft_checkall_size(t_elem *elem, t_opt *opt)
@@ -80,25 +72,28 @@ void	ft_checkall_size(t_elem *elem, t_opt *opt)
 	elem = save;
 }
 
-void	ft_no_optprint(t_elem *elem, t_opt *opt)
+void	ft_no_optprint(t_elem *elem, t_opt *opt, int i)
 {
 	if (elem->d_name[0] != '.' || opt->a == 1 ||
-		(opt->up_a == 1 && elem->d_name[0] != '.' &&
-		elem->d_name[1] != '\0') || (elem->d_name[0] != '.' &&
-		elem->d_name[1] != '.' && elem->d_name[2] != '\0' &&
-		opt->up_a == 1))
+		(opt->up_a == 1 && i > 2))
 	{
 		if (elem->d_namlen <= 255)
 		{
 			if (opt->l == 1)
 				ft_lprint(elem, opt);
-			ft_putendl(elem->d_name);
+			ft_putstr(elem->d_name);
+			if (S_ISLNK(elem->st_mode))
+				ft_printf(" -> ");
+			ft_putchar('\n');
 		}
 		else
 		{
 			if (opt->l == 1)
 				ft_lprint(elem, opt);
-			ft_putendl(elem->d_name);
+			ft_putstr(elem->d_name);
+			if (S_ISLNK(elem->st_mode))
+				ft_printf(" -> ");
+			ft_putchar('\n');
 		}
 	}
 }
@@ -106,7 +101,8 @@ void	ft_no_optprint(t_elem *elem, t_opt *opt)
 void	ft_print(t_elem *elem, t_opt *opt, char *str)
 {
 	t_elem		*save;
-	blkcnt_t	total;	
+	blkcnt_t	total;
+	int			i;
 
 	total = 0;
 	save = elem;
@@ -128,9 +124,11 @@ void	ft_print(t_elem *elem, t_opt *opt, char *str)
 		elem = save;
 		ft_checkall_size(elem, opt);
 	}
+	i = 0;
 	while (elem != NULL)
 	{
-		ft_no_optprint(elem, opt);
+		i += 1;
+		ft_no_optprint(elem, opt, i);
 		elem = elem->next;
 	}
 	elem = save;

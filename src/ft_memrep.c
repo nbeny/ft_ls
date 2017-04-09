@@ -28,30 +28,27 @@ t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str)
 	char		*s;
 
 	elem->d_namlen = d->d_namlen;
-	ft_strcpy(elem->d_name, d->d_name);
+	elem->d_name = ft_strdup(d->d_name);
 	s = ft_newstr_inmem(str, elem);
 	if (lstat(s, &st) == -1)
 	{
 		perror("error stat fonction !\n");
 		exit(EXIT_FAILURE);
 	}
+	elem->mtime = st.st_mtimespec.tv_sec;
+	elem->atime = st.st_atimespec.tv_sec;
 	elem->st_dev = st.st_dev;
 	elem->st_mode = st.st_mode;
 	elem->st_nlink = st.st_nlink;
 	elem->st_uid = st.st_uid;
 	elem->st_gid = st.st_gid;
 	elem->st_rdev = st.st_rdev;
-	elem->atime = time(&st.st_atime);
-	elem->mtime = time(&st.st_mtime);
-	elem->ctime = time(&st.st_ctime);
-	elem->birthtime = time(&st.st_birthtime);
-	elem->atime_c = ctime(&st.st_atime);
-	elem->mtime_c = ctime(&st.st_mtime);
-	elem->ctime_c = ctime(&st.st_ctime);
-	elem->birthtime_c = ctime(&st.st_birthtime);
+	elem->mtime_c = ft_set_time(elem->mtime);
+	elem->atime_c = ft_set_time(elem->atime);
 	elem->st_size = st.st_size;
 	elem->st_blocks = st.st_blocks;
-	free(s);
+	if (S_ISLNK(elem->st_mode))
+		elem->st_lkname = s;
 	return (elem);
 }
 

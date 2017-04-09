@@ -1,36 +1,36 @@
 #include "../include/ft_ls.h"
 
-static char		*build_time(char *dtime, int st, int ed)
+static char		*ft_build_time(char *st_time, int i, int j)
 {
-	char *ntime;
+	char *endtime;
 	char *tmp;
-	char *tmpt;
+	char *tmp2;
 
-	tmp = ft_strsub(dtime, 4, 7);
-	tmpt = ft_strsub(dtime, st, ed);
-	ntime = ft_strjoin(tmp, tmpt);
+	tmp = ft_strsub(st_time, 4, 7);
+	tmp2 = ft_strsub(st_time, i, j);
+	endtime = ft_strjoin(tmp, tmp2);
 	ft_strdel(&tmp);
-	ft_strdel(&tmpt);
-	return (ntime);
+	ft_strdel(&tmp2);
+	return (endtime);
 }
 
-char			*set_time(time_t timef)
+char			*ft_set_time(time_t st_tim)
 {
-	time_t	now;
-	char	*ntime;
-	char	*dtime;
+	time_t	yet;
+	char	*endtime;
+	char	*modtime;
 
-	now = time(NULL);
-	dtime = ctime(&timef);
-	ntime = NULL;
-	if ((now - timef) >= 15778800 || (now - timef) < 0)
+	yet = time(NULL);
+	modtime = ctime(&st_tim);
+	endtime = NULL;
+	if ((yet - st_tim) >= 15778800 || (yet - st_tim) < 0)
 	{
-		if (ft_strcmp(&dtime[23], " 10000\n") == 0)
-			ntime = build_time(dtime, 23, 6);
+		if (ft_strcmp(&modtime[23], " 10000\n"))
+			endtime = ft_build_time(modtime, 6, 23);
 		else
-			ntime = build_time(dtime, 19, 5);
+			endtime = ft_build_time(modtime, 5, 19);
 	}
 	else
-		ntime = ft_strsub(dtime, 4, 12);
-	return (ntime);
+		endtime = ft_strsub(modtime, 4, 12);
+	return (endtime);
 }
