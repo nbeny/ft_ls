@@ -3,7 +3,8 @@ NAME	=	ft_ls
 N_INC	=	ft_ls.h
 N_SRC	=	ft_check.c	ft_core.c\
 		ft_memrep.c	ft_print.c\
-		ft_tools.c	ft_trirep.c
+		ft_tools.c	ft_trirep.c\
+		ft_time.c	ft_tri_swap.c
 
 CC	=	gcc
 CC_FLAG	=	-g -Wall -Wextra -Werror

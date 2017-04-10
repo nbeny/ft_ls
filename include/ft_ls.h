@@ -79,6 +79,7 @@ void	ft_trirep_ascii(t_elem *elem);
 void	ft_trirep_u(t_elem *elem);
 void	ft_trirep_t(t_elem *elem);
 void	ft_reverse_order(t_elem *elem);
+void	ft_tri_swap(t_elem *save, t_elem *elem);
 /*
 **print
 */

@@ -2,108 +2,89 @@
 
 void	ft_reverse_order(t_elem *elem)
 {
-	int		i[2];
-	t_elem	*rev;
+	t_elem	*prev;
+	t_elem	*cur;
 	t_elem	*save;
-	t_elem	*tmp;
 
-	i[0] = 0;
-	rev = elem;
-	tmp = elem;
-	while (rev->next != NULL)
+	prev = NULL;
+	save = NULL;
+	cur = elem;
+	while (cur != NULL)
 	{
-		rev = rev->next;
-		i[0]++;
+		prev = cur;
+		cur = prev->next;
+		prev->next = save;
+		save = prev;
 	}
-	save = rev;
-	while (i[0] != 0)
-	{
-		i[1] = 0;
-		elem = tmp;
-		while (i[1] != i[0])
-		{
-			elem = elem->next;
-			i[1]++;
-		}
-		rev->next = elem;
-		rev = rev->next;
-		i[0]--;
-	}
-	rev->next = NULL;
 	elem = save;
 }
 
 void	ft_trirep_t(t_elem *elem)
 {
-	t_elem *save;
-	t_elem *tmp;
+	t_elem	*save;
+	int		i;
 
-	save = elem;
-	while (elem->next != NULL)
+	i = 1;
+	while (i)
 	{
-		if (elem->mtime > elem->next->mtime)
+		i = 0;
+		save = elem;
+		while (save->next != NULL)
 		{
-			tmp = elem->next;
-			elem->next = elem;
-			elem = tmp;
-			elem = save;
+			if (save->mtime < save->next->mtime)
+			{
+				i = 1;
+				ft_tri_swap(save, elem);
+			}
+			else
+				save = save->next;
 		}
-		else
-			elem = elem->next;
 	}
-	elem = save;
 }
 
 void	ft_trirep_u(t_elem *elem)
 {
-	t_elem *save;
-	t_elem  *tmp;
+	t_elem	*save;
+	int		i;
 
-	save = elem;
-	while (elem->next != NULL)
+	i = 1;
+	while (i)
 	{
-		if (elem->atime > elem->next->atime)
+		i = 0;
+		save = elem;
+		while (save->next != NULL)
 		{
-			tmp = elem->next;
-			elem->next = elem;
-			elem = tmp;
-			elem = save;
+			if (save->atime < save->next->atime)
+			{
+				i = 1;
+				ft_tri_swap(save, elem);
+			}
+			else
+				save = save->next;
 		}
-		else
-			elem = elem->next;
 	}
-	elem = save;
 }
 
 void	ft_trirep_ascii(t_elem *elem)
 {
-	t_elem	*nxt;
-	t_elem	*root;
-	t_elem	*tmp;
-	t_elem	*ptmp;
+	t_elem	*save;
+	int		i;
 
-	tmp = NULL;
-	ptmp = NULL;
-	root = elem;
-	nxt = elem->next;
-	while (nxt != NULL)
+	i = 1;
+	while (i)
 	{
-		while (root != NULL)
+		i = 0;
+		save = elem;
+		while (save->next != NULL)
 		{
-			if (ft_strcmp(root->d_name, nxt->d_name) > 0)
+			if (ft_strcmp(save->d_name, save->next->d_name) > 0)
 			{
-				ft_printf("try\n");
-				tmp = nxt;
-				ptmp = nxt->next;
-				nxt = root;
-				nxt = root->next;
-				root = tmp;
-				root->next = ptmp;
+				i = 1;
+				ft_tri_swap(save, elem);
 			}
-			root = root->next;
+			else
+				save = save->next;
 		}
-		root = elem;
-		nxt = nxt->next;
 	}
 }
 
