@@ -27,8 +27,7 @@ void	ft_lprint(t_elem *elem, t_opt *opt)
 	ft_putchar(elem->st_mode & S_IWOTH ? 'w' : '-');
 	ft_putchar(elem->st_mode & S_IXOTH ? 'x' : '-');
 
-	if (opt->i[0] == 2)
-		ft_printf(" % *hu", opt->i[0], elem->st_nlink);
+	ft_printf(" % *hu", opt->i[0], elem->st_nlink);
 	ft_printf(" %-*s", opt->i[1], elem->pw_name);
 	ft_printf("  %-*s", opt->i[2], elem->gr_name);
 	ft_printf("  % *lld", opt->i[3], elem->st_size);

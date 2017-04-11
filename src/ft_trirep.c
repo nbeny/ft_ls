@@ -2,21 +2,9 @@
 
 void	ft_reverse_order(t_elem *elem)
 {
-	t_elem	*prev;
-	t_elem	*cur;
 	t_elem	*save;
 
-	prev = NULL;
-	save = NULL;
-	cur = elem;
-	while (cur != NULL)
-	{
-		prev = cur;
-		cur = prev->next;
-		prev->next = save;
-		save = prev;
-	}
-	elem = save;
+	save = elem;
 }
 
 void	ft_trirep_t(t_elem *elem)

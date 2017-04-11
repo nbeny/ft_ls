@@ -12,26 +12,6 @@
 
 #include "../include/ft_printf.h"
 
-static int		ft_flags_int0(t_flag *f, t_list **begin_lst)
-{
-	if (f->c == 'd' && f->format[f->i - 1] == ' ' &&
-		f->format[f->i - 2] == '%' && f->arg[0] != '-')
-	{
-		ft_multibuf_nchar(begin_lst, ' ', 1);
-		ft_multibuf_arg(f, begin_lst, f->size);
-		free(f->arg);
-		return (0);
-	}
-	if (f->c == 'i' && f->format[f->i - 1] == ' ' &&
-		f->format[f->i - 2] == '%' && f->arg[0] != '-')
-	{
-		ft_multibuf_nchar(begin_lst, ' ', 1);
-		ft_multibuf_arg(f, begin_lst, f->size);
-		return (0);
-	}
-	return (1);
-}
-
 int				ft_flags_int1(t_flag *f, t_list **begin_lst)
 {
 	if (f->c == 'd' && f->format[f->i - 1] == '2' &&
@@ -55,7 +35,7 @@ int				ft_flags_int1(t_flag *f, t_list **begin_lst)
 	}
 	if (ft_flags_int4(f, begin_lst) == 0)
 		return (0);
-	return (ft_flags_int0(f, begin_lst));
+	return (1);
 }
 
 int				ft_flags_int3(t_flag *f, t_list **begin_lst)
