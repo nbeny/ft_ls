@@ -105,5 +105,4 @@ void			ft_ullputnbr_base(unsigned long long int nb, char *base);
 void			ft_max_putnbr_base(intmax_t nb, char *base);
 void			ft_umax_putnbr_base(uintmax_t nb, char *base);
 void			ft_size_putnbr_base(size_t nb, char *base);
-size_t			ft_size_number(size_t z);
 #endif

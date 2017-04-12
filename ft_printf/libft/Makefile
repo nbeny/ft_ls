@@ -41,8 +41,7 @@ N_SRC	=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 		ft_lputnbr_base.c ft_ulputnbr_base.c ft_llputnbr_base.c\
 		ft_ullputnbr_base.c ft_max_putnbr_base.c ft_umax_putnbr_base.c\
 		ft_size_putnbr_base.c ft_power.c\
-		ft_wbytelen.c ft_wcharlen.c ft_wstrlen.c\
-		ft_size_number.c
+		ft_wbytelen.c ft_wcharlen.c ft_wstrlen.c
 
 CC	=	gcc
 CC_FLAG	=	-g -Wall -Wextra -Werror
