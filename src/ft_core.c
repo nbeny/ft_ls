@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_core.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/12 01:44:10 by nbeny             #+#    #+#             */
+/*   Updated: 2017/04/12 01:44:12 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_ls.h"
 
 t_opt	*ft_init_opt(t_opt *opt)
@@ -40,7 +52,7 @@ int		ft_ls(char *str, t_opt *opt)
 			el = el->next;
 		}
 	el = save;
-	ft_freestyle(el);
+	ft_freestyle(el, str);
 	closedir(dir);
 	return (0);
 }
@@ -59,7 +71,7 @@ int		main(int ac, char **av)
 	}
 	opt = ft_init_opt(opt);
 	if (ac == 1)
-		ft_ls(".", opt);
+		ft_ls(ft_strdup("."), opt);
 	while (av[++i[0]] != NULL)
 	{
 		if (av[i[0]][0] == '-')
@@ -68,10 +80,10 @@ int		main(int ac, char **av)
 			i[1] += 1;
 		}
 		else
-			ft_ls(av[i[0]], opt);
+			ft_ls(ft_strdup(av[i[0]]), opt);
 	}
 	if (i[1] == i[0] && ac != 1)
-		ft_ls(".", opt);
+		ft_ls(ft_strdup("."), opt);
 	free(opt);
 	opt = NULL;
 	return (0);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tools.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/12 01:44:55 by nbeny             #+#    #+#             */
+/*   Updated: 2017/04/12 01:44:57 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_ls.h"
 
 int		ft_isrep(t_elem *el)
@@ -43,12 +55,18 @@ char	*ft_newstr_inmem(char *str, t_elem *el)
 	return (newstr);
 }
 
-void		ft_freestyle(t_elem *elem)
+void		ft_freestyle(t_elem *elem, char *str)
 {
 	t_elem *save;
 
+	ft_strdel(&str);
 	while (elem->next != NULL)
 	{
+		ft_strdel(&elem->d_name);
+		ft_strdel(&elem->pw_name);
+		ft_strdel(&elem->gr_name);
+		ft_strdel(&elem->atime_c);
+		ft_strdel(&elem->mtime_c);
 		save = elem;
 		elem = elem->next;
 		free(save);

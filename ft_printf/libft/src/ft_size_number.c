@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tri_swap.c                                      :+:      :+:    :+:   */
+/*   ft_size_number.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/12 01:45:05 by nbeny             #+#    #+#             */
-/*   Updated: 2017/04/12 01:45:06 by nbeny            ###   ########.fr       */
+/*   Created: 2017/04/12 00:54:43 by nbeny             #+#    #+#             */
+/*   Updated: 2017/04/12 00:54:46 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../include/ft_ls.h>
+#include "../include/libft.h"
 
-void	ft_tri_swap(t_elem *save, t_elem *elem)
+size_t	ft_size_number(size_t z)
 {
-	t_elem *before;
-	t_elem *after;
+	size_t i;
 
-	if (save == elem)
+	i = 0;
+	while (z > 9)
 	{
-		after = save->next;
-		save->next = save->next->next;
-		after->next = save;
-		elem = after;
+		i++;
+		z = z % 10;
 	}
-	else
-	{
-		before = elem;
-		after = save->next;
-		while (before->next != save)
-			before = before->next;
-		before->next = after;
-		save->next = after->next;
-		after->next = save;
-	}
+	i++;
+	return (i);
 }

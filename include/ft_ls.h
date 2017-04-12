@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/12 01:43:46 by nbeny             #+#    #+#             */
+/*   Updated: 2017/04/12 01:43:51 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_LS_H
 # define FT_LS_H
 
@@ -29,12 +41,13 @@ typedef struct	s_opt
 	int		up_g;
 	int		r_rep;
 	size_t		i[4];
+	size_t		z;
 }				t_opt;
 
 typedef struct	s_elem
 {
 	char		*d_name;
-	char		*st_lkname;
+	char		*lk_name;
 	__uint8_t	d_namlen;
 	char		*pw_name;
 	char		*gr_name;
@@ -85,7 +98,7 @@ void	ft_tri_swap(t_elem *save, t_elem *elem);
 */
 void	ft_print(t_elem *elem, t_opt *opt, char *str);
 void	ft_no_optprint(t_elem *elem, t_opt *opt, int i);
-void	ft_checkall_size(t_elem *elem, t_opt *opt);
+void	ft_checkall_size(t_elem *elem, t_opt *opt, int i);
 void	ft_lprint(t_elem *elem, t_opt *opt);
 void	ft_print_time(t_elem *elem, t_opt *opt);
 /*
@@ -93,7 +106,7 @@ void	ft_print_time(t_elem *elem, t_opt *opt);
 */
 int		ft_check_opt(char *str, t_opt *opt);
 void	ft_check_error(void);
-void	ft_freestyle(t_elem *elem);
+void	ft_freestyle(t_elem *elem, char *str);
 char	*ft_newstr(char *str, t_elem *el);
 char	*ft_newstr_inmem(char *str, t_elem *el);
 int		ft_isrep(t_elem *el);
