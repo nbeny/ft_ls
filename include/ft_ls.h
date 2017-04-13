@@ -91,8 +91,11 @@ void	ft_trirep(t_elem *elem, t_opt *opt);
 void	ft_trirep_ascii(t_elem *elem);
 void	ft_trirep_u(t_elem *elem);
 void	ft_trirep_t(t_elem *elem);
-void	ft_reverse_order(t_elem *elem);
 void	ft_tri_swap(t_elem *save, t_elem *elem);
+void	ft_revtri_ascii(t_elem *elem);
+void	ft_revtri_t(t_elem *elem);
+void	ft_revtri_u(t_elem *elem);
+void	ft_reverse_list(t_elem *elem);
 /*
 **print
 */

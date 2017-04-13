@@ -12,13 +12,6 @@
 
 #include "../include/ft_ls.h"
 
-void	ft_reverse_order(t_elem *elem)
-{
-	t_elem	*save;
-
-	save = elem;
-}
-
 void	ft_trirep_t(t_elem *elem)
 {
 	t_elem	*save;
@@ -99,5 +92,5 @@ void	ft_trirep(t_elem *elem, t_opt *opt)
 	else
 		ft_trirep_ascii(elem);
 	if (opt->r == 1)
-		ft_reverse_order(elem);
+		ft_reverse_list(elem);
 }
