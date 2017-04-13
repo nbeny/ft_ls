@@ -139,7 +139,7 @@ void	ft_print(t_elem *elem, t_opt *opt, char *str)
 			if (elem->d_name[0] != '.' || opt->a == 1 ||
 				(opt->up_a == 1 &&
 				ft_strncmp(elem->d_name, ".\0", 2) &&
-				ft_strncmp(elem->d_name, "..\0", 3)))
+				ft_strncmp(elem->d_name, "..\0", 3))))
 				total = total + elem->st_blocks;
 			elem = elem->next;
 		}

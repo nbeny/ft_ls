@@ -55,7 +55,7 @@ int		ft_ls(char *str, t_opt *opt)
 	{
 		while (el->next != NULL)
 			el = el->next;
-		while (el->previous != NULL)
+		while (el != NULL)
 		{
 			if (ft_isrep(el) == 1 && ft_strncmp(".\0", el->d_name, 2) &&
 			ft_strncmp("..\0", el->d_name, 3))

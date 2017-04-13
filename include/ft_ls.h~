@@ -101,11 +101,10 @@ void	ft_reverse_list(t_elem *elem);
 **print
 */
 void	ft_print(t_elem *elem, t_opt *opt, char *str);
-void	ft_no_optprint(t_elem *elem, t_opt *opt);
-void	ft_checkall_size(t_elem *elem, t_opt *opt);
+void	ft_no_optprint(t_elem *elem, t_opt *opt, int i);
+void	ft_checkall_size(t_elem *elem, t_opt *opt, int i);
 void	ft_lprint(t_elem *elem, t_opt *opt);
 void	ft_print_time(t_elem *elem, t_opt *opt);
-void	ft_previous_print(t_elem *elem, t_opt *opt);
 /*
 **usefull
 */
