@@ -62,11 +62,13 @@ void		ft_freestyle(t_elem *elem, char *str)
 	ft_strdel(&str);
 	while (elem->next != NULL)
 	{
-		ft_strdel(&elem->d_name);
-		ft_strdel(&elem->pw_name);
-		ft_strdel(&elem->gr_name);
-		ft_strdel(&elem->atime_c);
-		ft_strdel(&elem->mtime_c);
+		ft_strdel(&(elem->d_name));
+		if (S_ISLNK(elem->st_mode))
+			ft_strdel(&(elem->lk_name));
+		ft_strdel(&(elem->pw_name));
+		ft_strdel(&(elem->gr_name));
+		ft_strdel(&(elem->atime_c));
+		ft_strdel(&(elem->mtime_c));
 		save = elem;
 		elem = elem->next;
 		free(save);

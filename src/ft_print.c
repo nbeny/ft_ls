@@ -126,7 +126,7 @@ void	ft_print(t_elem *elem, t_opt *opt, char *str)
 	total = 0;
 	save = elem;
 	if (opt->up_r == 1 && opt->r_rep == 1 &&
-		(ft_strcmp(str, ".") || ft_strcmp(str, "/")))
+	    (ft_strncmp(str, ".\0", 2) || ft_strncmp(str, "/\0", 2)))
 		ft_printf("\n%s:\n", str);
 	else if (opt->up_r == 1 && opt->r_rep == 1)
 		ft_printf("\n./%s:\n", str);

@@ -85,13 +85,14 @@ t_elem  *ft_new_elem(struct dirent *d, char *str);
 t_elem	*ft_lstcpy_inelem(t_elem *elem);
 t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str);
 char	*ft_set_time(time_t st_tim);
+void	ft_previous_print(t_elem *elem, t_opt *opt);
 /*
 **trirep
 */
 void	ft_trirep(t_elem *elem, t_opt *opt);
 void	ft_trirep_ascii(t_elem *elem);
 void	ft_trirep_u(t_elem *elem);
-void	ft_trirep_t(t_elem *elem);
+void	ft_trirep_tt(t_elem *elem);
 void	ft_tri_swap(t_elem *save, t_elem *elem);
 void	ft_revtri_ascii(t_elem *elem);
 void	ft_revtri_t(t_elem *elem);

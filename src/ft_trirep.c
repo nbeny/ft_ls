@@ -12,7 +12,7 @@
 
 #include "../include/ft_ls.h"
 
-void	ft_trirep_t(t_elem *elem)
+void	ft_trirep_tt(t_elem *elem)
 {
 	t_elem	*save;
 	int		i;
@@ -86,7 +86,7 @@ void	ft_trirep(t_elem *elem, t_opt *opt)
 	if (opt->f == 1)
 		opt->a = 1;
 	else if (opt->t == 1 && opt->u == 0)
-		ft_trirep_t(elem);
+		ft_trirep_tt(elem);
 	else if (opt->t == 1 && opt->u == 1)
 		ft_trirep_u(elem);
 	else
