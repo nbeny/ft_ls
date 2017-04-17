@@ -34,16 +34,12 @@ t_elem	*ft_lstcpy_inelem(t_elem *elem)
 	return (elem);
 }
 
-t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str)
+t_elem	*ft_getstat(t_elem *elem, char *str)
 {
 	struct stat	st;
-	char		*s;
 	long int	lk;
 
-	elem->d_namlen = d->d_namlen;
-	elem->d_name = ft_strdup(d->d_name);
-	s = ft_newstr_inmem(str, elem);
-	if (lstat(s, &st) == -1)
+	if (lstat(str, &st) == -1)
 	{
 		perror("error lstat fonction !\n");
 		exit(EXIT_FAILURE);
@@ -67,7 +63,7 @@ t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str)
 			perror("error ! Unable to malloc path link name.\n");
 			exit(EXIT_FAILURE);
 		}
-		lk = readlink(s, elem->lk_name, st.st_size + 1);
+		lk = readlink(str, elem->lk_name, st.st_size + 1);
 		if (lk == -1)
 		{
 			perror("error readlink fonction !\n");
@@ -81,13 +77,13 @@ t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str)
 		}
 		elem->lk_name[st.st_size] = '\0';
 	}
-	ft_strdel(&s);
 	return (elem);
 }
 
 t_elem	*ft_new_elem(struct dirent *d, char *str)
 {
-	t_elem *elem;
+	t_elem	*elem;
+	char	*s;
 
 	if (d == NULL)
 	{
@@ -99,8 +95,12 @@ t_elem	*ft_new_elem(struct dirent *d, char *str)
 		perror("error ! Unable to malloc structure elem.\n");
 		exit(EXIT_FAILURE);
 	}
-	elem = ft_getstat(d, elem, str);
+	elem->d_namlen = d->d_namlen;
+	elem->d_name = ft_strdup(d->d_name);
+	s = ft_newstr_inmem(str, elem);
+	elem = ft_getstat(elem, s);
 	elem = ft_lstcpy_inelem(elem);
+	ft_strdel(&s);
 	return (elem);
 }
 

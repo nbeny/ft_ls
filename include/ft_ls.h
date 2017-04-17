@@ -40,8 +40,9 @@ typedef struct	s_opt
 	int		u;
 	int		up_g;
 	int		r_rep;
-	size_t		i[4];
-	size_t		z;
+	size_t	i[4];
+	size_t	z;
+	int		isarg[2];
 }				t_opt;
 
 typedef struct	s_elem
@@ -77,13 +78,18 @@ typedef struct	s_elem
 int		main(int ac, char **av);
 int		ft_ls(char *str, t_opt *opt);
 t_opt	*ft_init_opt(t_opt *opt);
+t_elem		*ft_is_source(char *str);
+void		ft_print_source(t_elem *el, t_opt *opt);
+void		ft_check_source(char **av, t_opt *opt, int i);
+int		ft_is_dir(char *str);
+int		ft_is_src(char *str);
 /*
 **memrep
 */
 t_elem	*ft_memrep(DIR *dir, char *str);
 t_elem  *ft_new_elem(struct dirent *d, char *str);
 t_elem	*ft_lstcpy_inelem(t_elem *elem);
-t_elem	*ft_getstat(struct dirent *d, t_elem *elem, char *str);
+t_elem	*ft_getstat(t_elem *elem, char *str);
 char	*ft_set_time(time_t st_tim);
 void	ft_previous_print(t_elem *elem, t_opt *opt);
 /*
@@ -107,8 +113,9 @@ void	ft_checkall_size(t_elem *elem, t_opt *opt);
 void	ft_lprint(t_elem *elem, t_opt *opt);
 void	ft_print_time(t_elem *elem, t_opt *opt);
 void	ft_previous_print(t_elem *elem, t_opt *opt);
+void	ft_check_str(char *str, t_opt *opt);
 /*
-**usefull
+**tools
 */
 int		ft_check_opt(char *str, t_opt *opt);
 void	ft_check_error(void);
@@ -116,4 +123,5 @@ void	ft_freestyle(t_elem *elem, char *str);
 char	*ft_newstr(char *str, t_elem *el);
 char	*ft_newstr_inmem(char *str, t_elem *el);
 int		ft_isrep(t_elem *el);
+t_elem	*ft_first_source(void);
 #endif

@@ -24,6 +24,8 @@ t_opt	*ft_init_opt(t_opt *opt)
 	opt->u = 0;
 	opt->up_g = 0;
 	opt->r_rep = 0;
+	opt->isarg[0] = 0;
+	opt->isarg[1] = 0;
 	return (opt);
 }
 
@@ -58,7 +60,7 @@ int		ft_ls(char *str, t_opt *opt)
 		while (el != NULL)
 		{
 			if (ft_isrep(el) == 1 && ft_strncmp(".\0", el->d_name, 2) &&
-			ft_strncmp("..\0", el->d_name, 3))
+				ft_strncmp("..\0", el->d_name, 3))
 				ft_ls(ft_newstr(str, el), opt);
 			el = el->previous;
 		}
@@ -84,15 +86,19 @@ int		main(int ac, char **av)
 	opt = ft_init_opt(opt);
 	if (ac == 1)
 		ft_ls(ft_strdup("."), opt);
+	while (av[++i[0]] != NULL && av[i[0]][0] == '-')
+	{
+		ft_check_opt(av[i[0]], opt);
+		i[1] += 1;
+	}
+	--i[0];
+	ft_check_source(av, opt, i[0]);
 	while (av[++i[0]] != NULL)
 	{
-		if (av[i[0]][0] == '-')
-		{
-			ft_check_opt(av[i[0]], opt);
-			i[1] += 1;
-		}
-		else
-			ft_ls(ft_strdup(av[i[0]]), opt);
+		if (av[i[0] + 1] != NULL)
+			opt->isarg[0] = 1;
+		if (ft_is_dir(av[i[0]]) == 1)
+			ft_ls(ft_strdup(av[i[0]]), opt);		
 	}
 	if (i[1] == i[0] && ac != 1)
 		ft_ls(ft_strdup("."), opt);

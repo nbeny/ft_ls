@@ -68,8 +68,8 @@ void	ft_checkall_size(t_elem *elem, t_opt *opt)
 	while (elem != NULL)
 	{
 		if (elem->d_name[0] != '.' || opt->a == 1 ||
-			(opt->up_a == 1 && strncmp(elem->d_name, ".\0", 2) &&
-			strncmp(elem->d_name, "..\0", 3)))
+			(opt->up_a == 1 && ft_strncmp(elem->d_name, ".\0", 2) &&
+			ft_strncmp(elem->d_name, "..\0", 3)))
 		{
 			nlink = ft_ushort_itoa_base(elem->st_nlink, 10);
 			size = ft_llitoa_base(elem->st_size, 10);
@@ -94,8 +94,8 @@ void	ft_checkall_size(t_elem *elem, t_opt *opt)
 void	ft_no_optprint(t_elem *elem, t_opt *opt)
 {
 	if (elem->d_name[0] != '.' || opt->a == 1 ||
-		(opt->up_a == 1 && strncmp(elem->d_name, ".\0", 2) &&
-		strncmp(elem->d_name, "..\0", 3)))
+		(opt->up_a == 1 && ft_strncmp(elem->d_name, ".\0", 2) &&
+		ft_strncmp(elem->d_name, "..\0", 3)))
 	{
 		if (elem->d_namlen <= 255)
 		{
@@ -125,13 +125,7 @@ void	ft_print(t_elem *elem, t_opt *opt, char *str)
 
 	total = 0;
 	save = elem;
-	if (opt->up_r == 1 && opt->r_rep == 1 &&
-	    (ft_strncmp(str, ".\0", 2) || ft_strncmp(str, "/\0", 2)))
-		ft_printf("\n%s:\n", str);
-	else if (opt->up_r == 1 && opt->r_rep == 1)
-		ft_printf("\n./%s:\n", str);
-	else
-		opt->r_rep = 1;
+	ft_check_str(str, opt);
 	if (opt->l == 1)
 	{
 		while (elem != NULL)

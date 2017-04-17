@@ -14,8 +14,8 @@
 
 void	ft_check_error(void)
 {
-	perror("ls: illegal option --\n");
-	perror("usage: ls [-RlrftuG] [file ...]\n");
+	perror("ls: illegal option --\n"
+		"usage: ls [-RlrftuG] [file ...]\n");
 	exit(EXIT_FAILURE);	
 }
 
@@ -55,4 +55,22 @@ int		ft_check_opt(char *str, t_opt *opt)
 		i++;
 	}
 	return (i);
+}
+
+void	ft_check_str(char *str, t_opt *opt)
+{
+	if (opt->up_r == 1 && opt->r_rep == 1 &&
+	    (ft_strncmp(str, ".\0", 2) || ft_strncmp(str, "/\0", 2)))
+		ft_printf("\n%s:\n", str);
+	else if (opt->up_r == 1 && opt->r_rep == 1)
+		ft_printf("\n./%s:\n", str);
+	else if (opt->isarg[0] == 1)
+	{
+		if (opt->isarg[1] == 1)
+			ft_putchar('\n');
+		ft_printf("%s:\n", str);
+		opt->isarg[1] = 1;
+	}
+	else
+		opt->r_rep = 1;
 }
