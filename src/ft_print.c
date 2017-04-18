@@ -28,7 +28,6 @@ void	ft_lprint(t_elem *elem, t_opt *opt)
 		ft_putchar('-');
 	else if(S_ISSOCK(elem->st_mode))
 		ft_putchar('s');
-
 	ft_putchar(elem->st_mode & S_IRUSR ? 'r' : '-');
 	ft_putchar(elem->st_mode & S_IWUSR ? 'w' : '-');
 	ft_putchar(elem->st_mode & S_IXUSR ? 'x' : '-');
@@ -38,7 +37,11 @@ void	ft_lprint(t_elem *elem, t_opt *opt)
 	ft_putchar(elem->st_mode & S_IROTH ? 'r' : '-');
 	ft_putchar(elem->st_mode & S_IWOTH ? 'w' : '-');
 	ft_putchar(elem->st_mode & S_IXOTH ? 'x' : '-');
+	ft_print_time(elem, opt);
+}
 
+void	ft_print_time(t_elem *elem, t_opt *opt)
+{
 	ft_printf("  % *hu", opt->i[0], elem->st_nlink);
 	if (opt->n == 0)
 	{
@@ -55,11 +58,6 @@ void	ft_lprint(t_elem *elem, t_opt *opt)
 			ft_printf("  %u", elem->st_gid);
 	}
 	ft_printf("  % *lld", opt->i[3], elem->st_size);
-	ft_print_time(elem, opt);
-}
-
-void	ft_print_time(t_elem *elem, t_opt *opt)
-{
 	if (opt->u != 1)
 		ft_printf(" %s ", elem->mtime_c);
 	else
