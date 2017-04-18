@@ -39,6 +39,9 @@ typedef struct	s_opt
 	int		t;
 	int		u;
 	int		up_g;
+	int		n;
+	int		g;
+	int		o;
 	int		r_rep;
 	size_t	i[4];
 	size_t	z;

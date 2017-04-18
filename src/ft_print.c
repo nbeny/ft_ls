@@ -40,8 +40,20 @@ void	ft_lprint(t_elem *elem, t_opt *opt)
 	ft_putchar(elem->st_mode & S_IXOTH ? 'x' : '-');
 
 	ft_printf("  % *hu", opt->i[0], elem->st_nlink);
-	ft_printf(" %-*s", opt->i[1], elem->pw_name);
-	ft_printf("  %-*s", opt->i[2], elem->gr_name);
+	if (opt->n == 0)
+	{
+		if (opt->g == 0)
+			ft_printf(" %-*s", opt->i[1], elem->pw_name);
+		if (opt->o == 0)
+			ft_printf("  %-*s", opt->i[2], elem->gr_name);
+	}
+	if (opt->n == 1)
+	{
+		if (opt->g == 0)
+			ft_printf(" %u", elem->st_uid);
+		if (opt->o == 0)
+			ft_printf("  %u", elem->st_gid);
+	}
 	ft_printf("  % *lld", opt->i[3], elem->st_size);
 	ft_print_time(elem, opt);
 }
@@ -97,24 +109,12 @@ void	ft_no_optprint(t_elem *elem, t_opt *opt)
 		(opt->up_a == 1 && ft_strncmp(elem->d_name, ".\0", 2) &&
 		ft_strncmp(elem->d_name, "..\0", 3)))
 	{
-		if (elem->d_namlen <= 255)
-		{
-			if (opt->l == 1)
-				ft_lprint(elem, opt);
-			ft_putstr(elem->d_name);
-			if (S_ISLNK(elem->st_mode) && opt->l == 1)
-				ft_printf(" -> %s", elem->lk_name);
-			ft_putchar('\n');
-		}
-		else
-		{
-			if (opt->l == 1)
-				ft_lprint(elem, opt);
-			ft_putstr(elem->d_name);
-			if (S_ISLNK(elem->st_mode) && opt->l == 1)
-				ft_printf(" -> %s", elem->lk_name);
-			ft_putchar('\n');
-		}
+		if (opt->l == 1)
+			ft_lprint(elem, opt);
+		ft_putstr(elem->d_name);
+		if (S_ISLNK(elem->st_mode) && opt->l == 1)
+			ft_printf(" -> %s", elem->lk_name);
+		ft_putchar('\n');
 	}
 }
 

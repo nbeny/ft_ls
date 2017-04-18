@@ -15,13 +15,34 @@
 void	ft_check_error(void)
 {
 	perror("ls: illegal option --\n"
-		"usage: ls [-RlrftuG] [file ...]\n");
-	exit(EXIT_FAILURE);	
+		"usage: ls [-ARafglnortu] [file ...]\n");
+	exit(EXIT_FAILURE);
+}
+
+void		ft_check_bonus(char *str, t_opt *opt, int i)
+{
+	if (str[i] == 'g')
+	{
+		opt->g = 1;
+		opt->l = 1;
+	}
+	else if (str[i] == 'n')
+	{
+		opt->n = 1;
+		opt->l = 1;
+	}
+	else if (str[i] == 'o')
+	{
+		opt->o = 1;
+		opt->l = 1;
+	}
 }
 
 int		ft_getopt(char *str, t_opt *opt, int i)
 {
-	if (str[i] == 'R')
+	if (str[i] == 'g' || str[i] == 'n' || str[i] == 'o')
+		ft_check_bonus(str, opt, i);
+	else if (str[i] == 'R')
 		opt->up_r = 1;
 	else if (str[i] == 'l')
 		opt->l = 1;

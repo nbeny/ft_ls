@@ -24,6 +24,9 @@ t_opt	*ft_init_opt(t_opt *opt)
 	opt->u = 0;
 	opt->up_g = 0;
 	opt->r_rep = 0;
+	opt->n = 0;
+	opt->g = 0;
+	opt->o = 0;
 	opt->isarg[0] = 0;
 	opt->isarg[1] = 0;
 	return (opt);
