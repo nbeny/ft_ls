@@ -84,7 +84,7 @@ void	ft_check_str(char *str, t_opt *opt)
 	    (ft_strncmp(str, ".\0", 2) || ft_strncmp(str, "/\0", 2)))
 		ft_printf("\n%s:\n", str);
 	else if (opt->up_r == 1 && opt->r_rep == 1)
-		ft_printf("\n./%s:\n", str);
+		ft_printf("\n%s:\n", str);
 	else if (opt->isarg[0] == 1)
 	{
 		if (opt->isarg[1] == 1)

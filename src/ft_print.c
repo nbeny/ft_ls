@@ -14,7 +14,7 @@
 
 void	ft_lprint(t_elem *elem, t_opt *opt)
 {
-	if(S_ISBLK(elem->st_mode))
+  	if(S_ISBLK(elem->st_mode))
 		ft_putchar('b');
 	else if(S_ISCHR(elem->st_mode))
 		ft_putchar('c');
@@ -30,13 +30,22 @@ void	ft_lprint(t_elem *elem, t_opt *opt)
 		ft_putchar('s');
 	ft_putchar(elem->st_mode & S_IRUSR ? 'r' : '-');
 	ft_putchar(elem->st_mode & S_IWUSR ? 'w' : '-');
-	ft_putchar(elem->st_mode & S_IXUSR ? 'x' : '-');
+	if (elem->st_mode & S_ISUID)
+		ft_putchar(elem->st_mode & S_IXUSR ? 's' : 'S');
+	else
+		ft_putchar(elem->st_mode & S_IXUSR ? 'x' : '-');
 	ft_putchar(elem->st_mode & S_IRGRP ? 'r' : '-');
 	ft_putchar(elem->st_mode & S_IWGRP ? 'w' : '-');
-	ft_putchar(elem->st_mode & S_IXGRP ? 'x' : '-');
+	if (elem->st_mode & S_ISGID)
+		ft_putchar(elem->st_mode & S_IXGRP ? 's' : 'S');
+	else
+		ft_putchar(elem->st_mode & S_IXGRP ? 'x' : '-');
 	ft_putchar(elem->st_mode & S_IROTH ? 'r' : '-');
 	ft_putchar(elem->st_mode & S_IWOTH ? 'w' : '-');
-	ft_putchar(elem->st_mode & S_IXOTH ? 'x' : '-');
+	if (elem->st_mode & S_ISVTX)
+		ft_putchar(elem->st_mode & S_IXUSR ? 't' : 'T');
+	else
+		ft_putchar(elem->st_mode & S_IXOTH ? 'x' : '-');
 	ft_print_time(elem, opt);
 }
 

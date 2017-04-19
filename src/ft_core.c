@@ -69,8 +69,6 @@ int		ft_ls(char *str, t_opt *opt)
 		}
 	}
 	el = save;
-	ft_freestyle(el, str);
-	closedir(dir);
 	return (0);
 }
 
@@ -78,9 +76,12 @@ int		main(int ac, char **av)
 {
 	int			i[2];
 	t_opt			*opt;
+	t_elem			*elem;
+	t_elem			*elem_sa;
 
 	i[0] = 0;
 	i[1] = 1;
+	elem = NULL;
 	if (!(opt = (t_opt *)malloc(sizeof(t_opt))))
 	{
 		perror("error ! unable to  malloc option.\n");
@@ -96,14 +97,33 @@ int		main(int ac, char **av)
 	}
 	--i[0];
 	ft_check_source(av, opt, i[0]);
-	while (av[++i[0]] != NULL)
+	elem = ft_check_dir(av, opt, i[0]);
+	elem_sa = elem;
+	if (opt->r == 0 && elem != NULL)
 	{
-		if (av[i[0] + 1] != NULL)
+		elem = elem->next;
+		if (elem->next != NULL && elem->next->next != NULL)
 			opt->isarg[0] = 1;
-		if (ft_is_dir(av[i[0]]) == 1)
-			ft_ls(ft_strdup(av[i[0]]), opt);		
+		while (elem != NULL)
+		{
+			ft_ls(elem->d_name, opt);
+			elem = elem->next;
+		}
 	}
-	if (i[1] == i[0] && ac != 1)
+	else if (opt->r == 1 && elem != NULL)
+	{
+		if (elem->next != NULL && elem->next->next != NULL)
+			opt->isarg[0] = 1;
+		while (elem->next != NULL)
+			elem = elem->next;
+		while (elem->previous != NULL)
+		{
+			ft_ls(elem->d_name, opt);
+			elem = elem->previous;
+		}
+	}
+	elem = elem_sa;
+	if (av[i[0] + 1] == NULL && ac != 1)
 		ft_ls(ft_strdup("."), opt);
 	free(opt);
 	opt = NULL;

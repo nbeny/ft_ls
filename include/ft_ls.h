@@ -84,6 +84,7 @@ t_opt	*ft_init_opt(t_opt *opt);
 t_elem		*ft_is_source(char *str);
 void		ft_print_source(t_elem *el, t_opt *opt);
 void		ft_check_source(char **av, t_opt *opt, int i);
+t_elem		*ft_check_dir(char **av, t_opt *opt, int i);
 int		ft_is_dir(char *str);
 int		ft_is_src(char *str);
 /*

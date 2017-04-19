@@ -10,14 +10,17 @@ void	ft_reverse_list(t_elem *elem)
 
 	save = elem;
 	len = 0;
-	while (save->next->next != NULL)
+	if (save->next != NULL)
 	{
-		len++;
-		save = save->next;
+		while (save->next->next != NULL)
+		{
+			len++;
+			save = save->next;
+		}
+		tmp = save->next;
+		tmp->previous = save; 
+		new_elem = tmp;
 	}
-	tmp = save->next;
-	tmp->previous = save; 
-	new_elem = tmp;
 	while (--len >= 0)
 	{
 		i = 0;

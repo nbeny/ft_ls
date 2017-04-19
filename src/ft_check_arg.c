@@ -32,7 +32,10 @@ void	ft_print_source(t_elem *el, t_opt *opt)
 		{
 			if (opt->l == 1)
 				ft_lprint(save, opt);
-			ft_printf("%s\n", save->d_name);
+			ft_putstr(save->d_name);
+			if (S_ISLNK(save->st_mode) && opt->l == 1)
+				ft_printf(" -> %s", save->lk_name);
+			ft_putchar('\n');
 			save = save->next;
 		}
 	else
@@ -43,7 +46,10 @@ void	ft_print_source(t_elem *el, t_opt *opt)
 		{
 			if (opt->l == 1)
 				ft_lprint(save, opt);
-			ft_printf("%s\n", save->d_name);
+			ft_putstr(save->d_name);
+			if (S_ISLNK(save->st_mode) && opt->l == 1)
+				ft_printf(" -> %s", save->lk_name);
+			ft_putchar('\n');
 			save = save->previous;
 		}
 	}
@@ -82,9 +88,11 @@ void	ft_check_source(char **av, t_opt *opt, int i)
 			}
 		}
 		save->next = NULL;
-		save = el;
+		save = el->next;
+		free(el);
+		el = NULL;
+		el = save;
 		ft_trirep(el, opt);
-		el = el->next;
 		ft_print_source(el, opt);
 		if (j == 1)
 			ft_putchar('\n');
