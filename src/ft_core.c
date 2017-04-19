@@ -69,6 +69,8 @@ int		ft_ls(char *str, t_opt *opt)
 		}
 	}
 	el = save;
+	ft_freestyle(el, str);
+	closedir(dir);
 	return (0);
 }
 
@@ -123,6 +125,13 @@ int		main(int ac, char **av)
 		}
 	}
 	elem = elem_sa;
+	while (elem != NULL)
+	{
+		elem_sa = elem;
+		elem = elem->next;
+		free(elem_sa);
+		elem_sa = NULL;
+	}
 	if (av[i[0] + 1] == NULL && ac != 1)
 		ft_ls(ft_strdup("."), opt);
 	free(opt);
