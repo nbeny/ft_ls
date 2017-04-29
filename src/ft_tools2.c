@@ -35,3 +35,22 @@ t_elem	*ft_first_source(void)
 	closedir(dir);
 	return (elem);
 }
+
+void		ft_free_arg(t_elem *elem)
+{
+	t_elem *save;
+
+	while (elem != NULL)
+	{
+		if (S_ISLNK(elem->st_mode))
+			ft_strdel(&(elem->lk_name));
+		ft_strdel(&(elem->pw_name));
+		ft_strdel(&(elem->gr_name));
+		ft_strdel(&(elem->atime_c));
+		ft_strdel(&(elem->mtime_c));
+		save = elem;
+		elem = elem->next;
+		free(save);
+		save = NULL;
+	}
+}

@@ -1,49 +1,27 @@
 #include "../include/ft_ls.h"
 
-void	ft_reverse_list(t_elem *elem)
+void	ft_revlist(t_elem *elem)
 {
-	t_elem	*save;
-	t_elem	*tmp;
-	t_elem	*new_elem;
-	int		len;
-	int		i;
+	t_elem	*x;
+	t_elem	*y;
+	size_t	i[3];
 
-	save = elem;
-	len = 0;
-	if (save->next != NULL)
+	i[0] = 0;
+	i[1] = 0;
+	x = elem;
+	y = elem;
+	while (x != NULL)
 	{
-		while (save->next->next != NULL)
-		{
-			len++;
-			save = save->next;
-		}
-		tmp = save->next;
-		tmp->previous = save; 
-		new_elem = tmp;
+		x = x->next;
+		i[0] += 1;
 	}
-	while (--len >= 0)
+	while (i[1]++ < i[0]--)
 	{
-		i = 0;
-		save = elem;
-		while (i < len)
-		{
-			save = save->next;
-			i++;
-		}
-		tmp = save->next;
-		tmp->previous = save;
-	}
-	elem->previous = NULL;
-	elem = new_elem;
-}
-
-void    ft_previous_print(t_elem *elem, t_opt *opt)
-{
-	while (elem->next != NULL)
-		elem = elem->next;
-	while (elem != NULL)
-	{
-		ft_no_optprint(elem, opt);
-		elem = elem->previous;
+		i[2] = 0;
+		x = elem;
+		while (i[2]++ < i[0])
+			x = x->next;
+		ft_swap_all(x, y);
+		y = y->next;
 	}
 }

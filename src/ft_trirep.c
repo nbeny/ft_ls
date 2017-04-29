@@ -15,69 +15,57 @@
 void	ft_trirep_tt(t_elem *elem)
 {
 	t_elem	*save;
-	int		i;
+	t_elem	*elsa;
 
-	i = 1;
-	while (i)
+	save = elem;
+	while (save->next != NULL)
 	{
-		i = 0;
-		save = elem;
-		while (save->next != NULL)
+		elsa = save->next;
+		while (elsa != NULL)
 		{
-			if (save->mtime < save->next->mtime)
-			{
-				i = 1;
-				ft_tri_swap(save, elem);
-			}
-			else
-				save = save->next;
+			if (save->mtime < elsa->mtime)
+				ft_swap_all(save, elsa);
+			elsa = elsa->next;
 		}
+		save = save->next;
 	}
 }
 
 void	ft_trirep_u(t_elem *elem)
 {
 	t_elem	*save;
-	int		i;
+	t_elem	*elsa;
 
-	i = 1;
-	while (i)
+	save = elem;
+	while (save->next != NULL)
 	{
-		i = 0;
-		save = elem;
-		while (save->next != NULL)
+		elsa = save->next;
+		while (elsa != NULL)
 		{
-			if (save->atime < save->next->atime)
-			{
-				i = 1;
-				ft_tri_swap(save, elem);
-			}
-			else
-				save = save->next;
+			if (save->atime < elsa->atime)
+				ft_swap_all(save, elsa);
+			elsa = elsa->next;
 		}
+		save = save->next;
 	}
 }
 
 void	ft_trirep_ascii(t_elem *elem)
 {
 	t_elem	*save;
-	int		i;
+	t_elem	*elsa;
 
-	i = 1;
-	while (i)
+	save = elem;
+	while (save->next != NULL)
 	{
-		i = 0;
-		save = elem;
-		while (save->next != NULL)
+		elsa = save->next;
+		while (elsa != NULL)
 		{
-			if (ft_strcmp(save->d_name, save->next->d_name) > 0)
-			{
-				i = 1;
-				ft_tri_swap(save, elem);
-			}
-			else
-				save = save->next;
+			if (ft_strcmp(save->d_name, elsa->d_name) > 0)
+				ft_swap_all(save, elsa);
+			elsa = elsa->next;
 		}
+		save = save->next;
 	}
 }
 
@@ -92,5 +80,5 @@ void	ft_trirep(t_elem *elem, t_opt *opt)
 	else
 		ft_trirep_ascii(elem);
 	if (opt->r == 1)
-		ft_reverse_list(elem);
+		ft_revlist(elem);
 }

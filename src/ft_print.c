@@ -14,19 +14,19 @@
 
 void	ft_lprint(t_elem *elem, t_opt *opt)
 {
-  	if(S_ISBLK(elem->st_mode))
+  	if (S_ISBLK(elem->st_mode))
 		ft_putchar('b');
-	else if(S_ISCHR(elem->st_mode))
+	else if (S_ISCHR(elem->st_mode))
 		ft_putchar('c');
-	else if(S_ISDIR(elem->st_mode))
+	else if (S_ISDIR(elem->st_mode))
 		ft_putchar('d');
-	else if(S_ISFIFO(elem->st_mode))
+	else if (S_ISFIFO(elem->st_mode))
 		ft_putchar('p');
-	else if(S_ISLNK(elem->st_mode))
+	else if (S_ISLNK(elem->st_mode))
 		ft_putchar('l');
-	else if(S_ISREG(elem->st_mode))
+	else if (S_ISREG(elem->st_mode))
 		ft_putchar('-');
-	else if(S_ISSOCK(elem->st_mode))
+	else if (S_ISSOCK(elem->st_mode))
 		ft_putchar('s');
 	ft_putchar(elem->st_mode & S_IRUSR ? 'r' : '-');
 	ft_putchar(elem->st_mode & S_IWUSR ? 'w' : '-');
@@ -52,21 +52,27 @@ void	ft_lprint(t_elem *elem, t_opt *opt)
 void	ft_print_time(t_elem *elem, t_opt *opt)
 {
 	ft_printf("  % *hu", opt->i[0], elem->st_nlink);
-	if (opt->n == 0)
+	if (opt->g == 0 && opt->n == 0)
+		ft_printf(" %-*s ", opt->i[1], elem->pw_name);
+	if (opt->o == 0 && opt->n == 0)
+		ft_printf(" %-*s ", opt->i[2], elem->gr_name);
+	if (opt->g == 0 && opt->n == 1)
+		ft_printf(" %u ", elem->st_uid);
+	if (opt->o == 0 && opt->n == 1)
+		ft_printf("  %u ", elem->st_gid);
+	if (S_ISCHR(elem->st_mode) || S_ISBLK(elem->st_mode))
+		ft_printf("  % *u, % *u", opt->j[1], major(elem->st_rdev), \
+				opt->j[2], minor(elem->st_rdev));
+	else
 	{
-		if (opt->g == 0)
-			ft_printf(" %-*s", opt->i[1], elem->pw_name);
-		if (opt->o == 0)
-			ft_printf("  %-*s", opt->i[2], elem->gr_name);
+		if (opt->j[0] == 1)
+		{
+			ft_putcstr(' ', (4 + opt->j[1]));
+			ft_printf("% *u", opt->j[2], minor(elem->st_rdev));
+		}
+		else
+			ft_printf(" % *lld", opt->i[3], elem->st_size);
 	}
-	if (opt->n == 1)
-	{
-		if (opt->g == 0)
-			ft_printf(" %u", elem->st_uid);
-		if (opt->o == 0)
-			ft_printf("  %u", elem->st_gid);
-	}
-	ft_printf("  % *lld", opt->i[3], elem->st_size);
 	if (opt->u != 1)
 		ft_printf(" %s ", elem->mtime_c);
 	else
@@ -148,16 +154,12 @@ void	ft_print(t_elem *elem, t_opt *opt, char *str)
 			ft_printf("total %d\n", total);
 		elem = save;
 		ft_checkall_size(elem, opt);
+		ft_checkdev_size(elem, opt);
 	}
-	if (opt->r == 1)
-		ft_previous_print(elem, opt);
-	else
+	while (elem != NULL)
 	{
-		while (elem != NULL)
-		{
-			ft_no_optprint(elem, opt);
-			elem = elem->next;
-		}
-		elem = save;
+		ft_no_optprint(elem, opt);
+		elem = elem->next;
 	}
+	elem = save;
 }

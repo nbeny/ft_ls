@@ -27,31 +27,15 @@ void	ft_print_source(t_elem *el, t_opt *opt)
 
 	ft_checkall_size(el, opt);
 	save = el;
-	if (opt->r == 0)
-		while (save != NULL)
-		{
-			if (opt->l == 1)
-				ft_lprint(save, opt);
-			ft_putstr(save->d_name);
-			if (S_ISLNK(save->st_mode) && opt->l == 1)
-				ft_printf(" -> %s", save->lk_name);
-			ft_putchar('\n');
-			save = save->next;
-		}
-	else
+	while (save != NULL)
 	{
-		while (save->next != NULL)
-			save = save->next;
-		while (save->previous != NULL)
-		{
-			if (opt->l == 1)
-				ft_lprint(save, opt);
-			ft_putstr(save->d_name);
-			if (S_ISLNK(save->st_mode) && opt->l == 1)
-				ft_printf(" -> %s", save->lk_name);
-			ft_putchar('\n');
-			save = save->previous;
-		}
+		if (opt->l == 1)
+			ft_lprint(save, opt);
+		ft_putstr(save->d_name);
+		if (S_ISLNK(save->st_mode) && opt->l == 1)
+			ft_printf(" -> %s", save->lk_name);
+		ft_putchar('\n');
+		save = save->next;
 	}
 }
 
@@ -90,18 +74,14 @@ void	ft_check_source(char **av, t_opt *opt, int i)
 		}
 		save->next = NULL;
 		save = el;
-		ft_trirep(el, opt);
 		el = el->next;
+		free(save);
+		save = el;
+		ft_trirep(el, opt);
 		ft_print_source(el, opt);
 		if (j == 1)
 			ft_putchar('\n');
-		while (save != NULL)
-		{
-			el = save;
-			save = save->next;
-			free(el);
-			el = NULL;
-		}
+		ft_freestyle(el);
 	}
 }
 

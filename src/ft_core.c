@@ -48,29 +48,20 @@ int		ft_ls(char *str, t_opt *opt)
 	ft_trirep(el, opt);
 	ft_print(el, opt, str);
 	save = el;
-	if (opt->up_r == 1 && opt->r == 0)
+	if (opt->up_r == 1)
 		while (el != NULL)
 		{
-			if (ft_isrep(el) == 1 && ft_strncmp(".\0", el->d_name, 2) &&
-				ft_strncmp("..\0", el->d_name, 3))
+			if ((opt->a == 1 || opt->up_a == 1 ||
+				el->d_name[0] != '.') && ft_isrep(el) == 1 &&
+				ft_strncmp(el->d_name, ".\0", 2) &&
+				ft_strncmp(el->d_name, "..\0", 3))
 				ft_ls(ft_newstr(str, el), opt);
 			el = el->next;
 		}
-	else if (opt->up_r == 1 && opt->r == 1)
-	{
-		while (el->next != NULL)
-			el = el->next;
-		while (el != NULL)
-		{
-			if (ft_isrep(el) == 1 && ft_strncmp(".\0", el->d_name, 2) &&
-				ft_strncmp("..\0", el->d_name, 3))
-				ft_ls(ft_newstr(str, el), opt);
-			el = el->previous;
-		}
-	}
 	el = save;
-	ft_freestyle(el, str);
+	ft_freestyle(el);
 	closedir(dir);
+	ft_strdel(&str);
 	return (0);
 }
 
@@ -101,9 +92,8 @@ int		main(int ac, char **av)
 	ft_check_source(av, opt, i[0]);
 	elem = ft_check_dir(av, opt, i[0]);
 	elem_sa = elem;
-	if (opt->r == 0 && elem != NULL && elem->next != NULL)
+	if (elem != NULL)
 	{
-		elem = elem->next;
 		if (elem->next != NULL)
 			opt->isarg[0] = 1;
 		while (elem != NULL)
@@ -112,26 +102,7 @@ int		main(int ac, char **av)
 			elem = elem->next;
 		}
 	}
-	else if (opt->r == 1 && elem != NULL && elem->next != NULL)
-	{
-		while (elem->next != NULL)
-			elem = elem->next;
-		if (elem->previous != NULL && elem->previous->previous != NULL)
-			opt->isarg[0] = 1;
-		while (elem->previous != NULL)
-		{
-			ft_ls(elem->d_name, opt);
-			elem = elem->previous;
-		}
-	}
-	elem = elem_sa;
-	while (elem != NULL)
-	{
-		elem_sa = elem;
-		elem = elem->next;
-		free(elem_sa);
-		elem_sa = NULL;
-	}
+	ft_free_arg(elem_sa);
 	if (av[i[0] + 1] == NULL && ac != 1)
 		ft_ls(ft_strdup("."), opt);
 	free(opt);

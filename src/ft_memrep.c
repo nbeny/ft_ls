@@ -56,6 +56,7 @@ t_elem	*ft_getstat(t_elem *elem, char *str)
 	elem->atime_c = ft_set_time(elem->atime);
 	elem->st_size = st.st_size;
 	elem->st_blocks = st.st_blocks;
+	elem->lk_name = NULL;
 	if (S_ISLNK(elem->st_mode))
 	{
 		if (!(elem->lk_name = (char *)malloc(sizeof(char) * (st.st_size + 1))))
@@ -69,12 +70,12 @@ t_elem	*ft_getstat(t_elem *elem, char *str)
 			perror("error readlink fonction !\n");
 			exit(EXIT_FAILURE);
 		}
-		if (lk > st.st_size)
+		/*		if (lk > st.st_size)
 		{
 			perror("symlink increased in size "
 				"between lstat() and readlink()\n");
 			exit(EXIT_FAILURE);
-		}
+			}*/
 		elem->lk_name[st.st_size] = '\0';
 	}
 	return (elem);

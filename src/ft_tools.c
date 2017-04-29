@@ -55,12 +55,11 @@ char	*ft_newstr_inmem(char *str, t_elem *el)
 	return (newstr);
 }
 
-void		ft_freestyle(t_elem *elem, char *str)
+void		ft_freestyle(t_elem *elem)
 {
 	t_elem *save;
 
-	ft_strdel(&str);
-	while (elem->next != NULL)
+	while (elem != NULL)
 	{
 		ft_strdel(&(elem->d_name));
 		if (S_ISLNK(elem->st_mode))
