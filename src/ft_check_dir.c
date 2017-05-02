@@ -28,9 +28,7 @@ t_elem	*ft_check_dir(char **av, t_opt *opt, int i)
 		}
 		save->next = NULL;
 		save = el;
-		el = el->next;
-		free(save);
-		save = el;
+		el = ft_free_firstone(save);
 		ft_trirep(el, opt);
 	}
 	return (el);

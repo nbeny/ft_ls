@@ -54,3 +54,21 @@ void		ft_free_arg(t_elem *elem)
 		save = NULL;
 	}
 }
+
+t_elem		*ft_free_firstone(t_elem *elem)
+{
+	t_elem	*sa;
+
+	sa = elem;
+	elem = elem->next;
+	ft_strdel(&(sa->d_name));
+	if (S_ISLNK(sa->st_mode))
+		ft_strdel(&(sa->lk_name));
+	ft_strdel(&(sa->pw_name));
+	ft_strdel(&(sa->gr_name));
+	ft_strdel(&(sa->atime_c));
+	ft_strdel(&(sa->mtime_c));
+	free(sa);
+	sa = NULL;
+	return (elem);
+}

@@ -124,4 +124,5 @@ char	*ft_newstr_inmem(char *str, t_elem *el);
 int		ft_isrep(t_elem *el);
 t_elem	*ft_first_source(void);
 void	ft_free_arg(t_elem *el);
+t_elem	*ft_free_firstone(t_elem *elem);
 #endif

@@ -70,13 +70,17 @@ t_elem	*ft_getstat(t_elem *elem, char *str)
 			perror("error readlink fonction !\n");
 			exit(EXIT_FAILURE);
 		}
-		/*		if (lk > st.st_size)
+		if (lk > st.st_size)
 		{
-			perror("symlink increased in size "
-				"between lstat() and readlink()\n");
-			exit(EXIT_FAILURE);
-			}*/
-		elem->lk_name[st.st_size] = '\0';
+			if (!ft_strncmp("stdin\0", elem->d_name, 6))
+				elem->lk_name = ft_strdup("fd/0");
+			else if (!ft_strncmp("stdout\0", elem->d_name, 7))
+				elem->lk_name = ft_strdup("fd/1");
+			else if (!ft_strncmp("stderr\0", elem->d_name, 7))
+				elem->lk_name = ft_strdup("fd/2");
+		}
+		else
+			elem->lk_name[st.st_size] = '\0';
 	}
 	return (elem);
 }

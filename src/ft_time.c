@@ -17,14 +17,17 @@ static char		*ft_build_time(char *st_time, int i, int j)
 	char *endtime;
 	char *tmp;
 	char *tmp2;
+	char *space;
 	int	z;
 
 	endtime = NULL;
 	tmp = ft_strsub(st_time, 4, 7);
 	tmp2 = ft_strsub(st_time, i, j);
-	endtime = ft_strjoin(tmp, tmp2);
+	space = ft_strjoin(tmp, " ");
+	endtime = ft_strjoin(space, tmp2);
 	ft_strdel(&tmp);
 	ft_strdel(&tmp2);
+	ft_strdel(&space);
 	z = 0;
 	while (endtime[z] != '\0')
 	{
@@ -45,12 +48,7 @@ char			*ft_set_time(time_t st_tim)
 	modtime = ctime(&st_tim);
 	endtime = NULL;
 	if ((yet - st_tim) >= 15778800 || (yet - st_tim) < 0)
-	{
-		if (ft_strcmp(&modtime[23], " 10000\n"))
-			endtime = ft_build_time(modtime, 20, 22);
-		else
-			endtime = ft_build_time(modtime, 20, 22);
-	}
+		endtime = ft_build_time(modtime, 20, 22);
 	else
 		endtime = ft_strsub(modtime, 4, 12);
 	return (endtime);
