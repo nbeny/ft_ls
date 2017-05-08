@@ -34,12 +34,6 @@ void	ft_swap_char(t_elem *save, t_elem *elsa)
 	ft_strdel(&elsa->pw_name);
 	elsa->pw_name = ft_strdup(swap);
 	ft_strdel(&swap);
-	swap = ft_strdup(save->gr_name);
-	ft_strdel(&save->gr_name);
-	save->gr_name = ft_strdup(elsa->gr_name);
-	ft_strdel(&elsa->gr_name);
-	elsa->gr_name = ft_strdup(swap);
-	ft_strdel(&swap);
 }
 
 void	ft_swap_time(t_elem *save, t_elem *elsa)
@@ -75,7 +69,6 @@ void	ft_swap_st(t_elem *save, t_elem *elsa)
 {
 	dev_t	st_dev;
 	mode_t	st_mode;
-	nlink_t	st_nlink;
 	dev_t	st_rdev;
 	uid_t	st_uid;
 	gid_t	st_gid;
@@ -86,9 +79,6 @@ void	ft_swap_st(t_elem *save, t_elem *elsa)
 	st_mode = save->st_mode;
 	save->st_mode = elsa->st_mode;
 	elsa->st_mode = st_mode;
-	st_nlink = save->st_nlink;
-	save->st_nlink = elsa->st_nlink;
-	elsa->st_nlink = st_nlink;
 	st_rdev = save->st_rdev;
 	save->st_rdev = elsa->st_rdev;
 	elsa->st_rdev = st_rdev;
@@ -104,7 +94,15 @@ void	ft_swap_all(t_elem *save, t_elem *elsa)
 {
 	off_t		st_size;
 	blkcnt_t	st_blocks;
+	nlink_t		st_nlink;
+	char		*swap;
 
+	swap = ft_strdup(save->gr_name);
+	ft_strdel(&save->gr_name);
+	save->gr_name = ft_strdup(elsa->gr_name);
+	ft_strdel(&elsa->gr_name);
+	elsa->gr_name = ft_strdup(swap);
+	ft_strdel(&swap);
 	ft_swap_char(save, elsa);
 	ft_swap_time(save, elsa);
 	ft_swap_st(save, elsa);
@@ -114,4 +112,7 @@ void	ft_swap_all(t_elem *save, t_elem *elsa)
 	st_blocks = save->st_blocks;
 	save->st_blocks = elsa->st_blocks;
 	elsa->st_blocks = st_blocks;
+	st_nlink = save->st_nlink;
+	save->st_nlink = elsa->st_nlink;
+	elsa->st_nlink = st_nlink;
 }

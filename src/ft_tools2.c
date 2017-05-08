@@ -1,11 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tools2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/08 19:54:38 by nbeny             #+#    #+#             */
+/*   Updated: 2017/05/08 19:54:40 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_ls.h"
 
-t_elem	*ft_first_source(void)
+static DIR				*ft_get_dir_norme(void)
 {
-	DIR			*dir;
-	struct dirent	*d;
-	struct stat	st;
-	t_elem		*elem;
+	DIR	*dir;
 
 	dir = opendir("/");
 	if (dir == NULL)
@@ -13,12 +22,31 @@ t_elem	*ft_first_source(void)
 		perror("ls : No such file or directory\n");
 		exit(EXIT_FAILURE);
 	}
+	return (dir);
+}
+
+static struct dirent	*ft_get_read_norme(DIR *dir)
+{
+	struct dirent	*d;
+
 	d = readdir(dir);
 	if (d == NULL)
 	{
 		perror("error ! Unable to read file.\n");
 		exit(EXIT_FAILURE);
 	}
+	return (d);
+}
+
+t_elem					*ft_first_source(void)
+{
+	DIR				*dir;
+	struct dirent	*d;
+	struct stat		st;
+	t_elem			*elem;
+
+	dir = ft_get_dir_norme();
+	d = ft_get_read_norme(dir);
 	if (!(elem = (t_elem *)malloc(sizeof(t_elem))))
 	{
 		perror("error ! Unable to malloc structure elem.\n");
@@ -36,7 +64,7 @@ t_elem	*ft_first_source(void)
 	return (elem);
 }
 
-void		ft_free_arg(t_elem *elem)
+void					ft_free_arg(t_elem *elem)
 {
 	t_elem *save;
 
@@ -55,7 +83,7 @@ void		ft_free_arg(t_elem *elem)
 	}
 }
 
-t_elem		*ft_free_firstone(t_elem *elem)
+t_elem					*ft_free_firstone(t_elem *elem)
 {
 	t_elem	*sa;
 

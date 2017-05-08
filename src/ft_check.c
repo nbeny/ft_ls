@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 01:43:59 by nbeny             #+#    #+#             */
-/*   Updated: 2017/04/12 01:44:02 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/05/08 18:57:05 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_check_error(void)
 	exit(EXIT_FAILURE);
 }
 
-void		ft_check_bonus(char *str, t_opt *opt, int i)
+void	ft_check_bonus(char *str, t_opt *opt, int i)
 {
 	if (str[i] == 'g')
 	{
@@ -79,7 +79,7 @@ int		ft_check_opt(char *str, t_opt *opt)
 void	ft_check_str(char *str, t_opt *opt)
 {
 	if (opt->up_r == 1 && opt->r_rep == 1 &&
-	    (ft_strncmp(str, ".\0", 2) || ft_strncmp(str, "/\0", 2)))
+		(ft_strncmp(str, ".\0", 2) || ft_strncmp(str, "/\0", 2)))
 		ft_printf("\n%s:\n", str);
 	else if (opt->up_r == 1 && opt->r_rep == 1)
 		ft_printf("\n%s:\n", str);

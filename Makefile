@@ -18,7 +18,8 @@ N_SRC	=	ft_check.c	ft_core.c\
 		ft_tools.c	ft_trirep.c\
 		ft_time.c	ft_tri_swap.c\
 		ft_check_arg.c	ft_check_dir.c\
-		ft_tools2.c	ft_revtri.c
+		ft_tools2.c	ft_revtri.c\
+		ft_norme.c	ft_norme2.c
 
 CC	=	gcc
 CC_FLAG	=	-g -Wall -Wextra -Werror

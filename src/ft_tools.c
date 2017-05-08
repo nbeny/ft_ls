@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 01:44:55 by nbeny             #+#    #+#             */
-/*   Updated: 2017/04/12 01:44:57 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/05/08 19:01:53 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_newstr_inmem(char *str, t_elem *el)
 	return (newstr);
 }
 
-void		ft_freestyle(t_elem *elem)
+void	ft_freestyle(t_elem *elem)
 {
 	t_elem *save;
 

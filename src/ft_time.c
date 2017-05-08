@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 01:44:44 by nbeny             #+#    #+#             */
-/*   Updated: 2017/04/12 01:44:46 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/05/08 19:01:35 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static char		*ft_build_time(char *st_time, int i, int j)
 {
-	char *endtime;
-	char *tmp;
-	char *tmp2;
-	char *space;
-	int	z;
+	char	*endtime;
+	char	*tmp;
+	char	*tmp2;
+	char	*space;
+	int		z;
 
 	endtime = NULL;
 	tmp = ft_strsub(st_time, 4, 7);

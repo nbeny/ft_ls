@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_arg.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/08 18:58:59 by nbeny             #+#    #+#             */
+/*   Updated: 2017/05/08 18:59:02 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_ls.h"
 
 t_elem	*ft_is_source(char *str)
@@ -43,53 +55,25 @@ void	ft_check_source(char **av, t_opt *opt, int i)
 {
 	t_elem	*el;
 	t_elem	*save;
-	int		j;
 
-	j = 0;
-	el = NULL;
-	while (av[++i] != NULL)
-	{
-		if (av[i][0] == '-' && av[i][1] == '-' &&
-			av[i + 1] != NULL)
-			i++;
-		if (av[i][0] == '-' && av[i][1] == '-' &&
-			av[i + 1] == NULL)
-			return ;
-		if (ft_is_src(av[i]) == 2)
-			j = 1;
-		if (ft_is_src(av[i]) == 1)
-		{
-			opt->isarg[0] = 1;
-			el = ft_first_source();
-			break;
-		}
-	}
+	opt->is = 0;
+	el = ft_check_source_norme(av, opt, i);
+	i = opt->norme;
 	--i;
 	if (el != NULL)
 	{
-		save = el;
-		while (av[i++] != NULL)
-		{
-			if (ft_is_src(av[i]) == 2)
-				j = 1;
-			if (ft_is_src(av[i]) == 1)
-			{
-				save->next = ft_is_source(av[i]);
-				save = save->next;
-			}
-		}
-		save->next = NULL;
-		save = el;
+		save = ft_check_source_norme2(av, opt, i, el);
+		i = opt->norme;
 		el = ft_free_firstone(save);
 		ft_trirep(el, opt);
 		ft_print_source(el, opt);
-		if (j == 1)
+		if (opt->is == 1)
 			ft_putchar('\n');
 		ft_freestyle(el);
 	}
 }
 
-int	ft_is_dir(char *str)
+int		ft_is_dir(char *str)
 {
 	DIR			*d;
 
@@ -101,7 +85,7 @@ int	ft_is_dir(char *str)
 	return (0);
 }
 
-int	ft_is_src(char *str)
+int		ft_is_src(char *str)
 {
 	struct stat	st;
 
