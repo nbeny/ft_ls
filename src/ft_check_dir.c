@@ -8,6 +8,12 @@ t_elem	*ft_check_dir(char **av, t_opt *opt, int i)
 	el = NULL;
 	while (av[++i] != NULL)
 	{
+		if (av[i][0] == '-' && av[i][1] == '-' &&
+			av[i + 1] != NULL)
+			i++;
+		if (av[i][0] == '-' && av[i][1] == '-' &&
+			av[i + 1] == NULL)
+		  return (NULL);
 		if (ft_is_src(av[i]) == 2)
 		{
 			el = ft_first_source();

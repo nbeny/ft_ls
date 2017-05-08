@@ -49,6 +49,12 @@ void	ft_check_source(char **av, t_opt *opt, int i)
 	el = NULL;
 	while (av[++i] != NULL)
 	{
+		if (av[i][0] == '-' && av[i][1] == '-' &&
+			av[i + 1] != NULL)
+			i++;
+		if (av[i][0] == '-' && av[i][1] == '-' &&
+			av[i + 1] == NULL)
+			return ;
 		if (ft_is_src(av[i]) == 2)
 			j = 1;
 		if (ft_is_src(av[i]) == 1)

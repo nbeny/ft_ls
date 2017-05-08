@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 01:43:46 by nbeny             #+#    #+#             */
-/*   Updated: 2017/04/12 01:43:51 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/05/08 15:06:29 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,23 @@ typedef struct	s_opt
 
 typedef struct	s_elem
 {
-	char		*d_name;
-	char		*lk_name;
-	__uint8_t	d_namlen;
-	char		*pw_name;
-	char		*gr_name;
-	dev_t		st_dev;			/* ID of device containing file */
-	mode_t		st_mode;		/* Mode of file (see below) */
-	nlink_t		st_nlink;		/* Number of hard links */
-	uid_t		st_uid;			/* User ID of the file */
-	gid_t		st_gid;			/* Group ID of the file */
-	dev_t		st_rdev;		/* Device ID */
-	time_t		atime;			/* time of last access */
-	time_t		mtime;			/* time of last data modification */
-	char		*atime_c;
-	char		*mtime_c;
-	off_t		st_size;		/* file size, in bytes */
-	blkcnt_t	st_blocks;		/* blocks allocated for file */
+	char			*d_name;
+	char			*lk_name;
+	__uint8_t		d_namlen;
+	char			*pw_name;
+	char			*gr_name;
+	dev_t			st_dev;
+	mode_t			st_mode;
+	nlink_t			st_nlink;
+	uid_t			st_uid;
+	gid_t			st_gid;
+	dev_t			st_rdev;
+	time_t			atime;
+	time_t			mtime;
+	char			*atime_c;
+	char			*mtime_c;
+	off_t			st_size;
+	blkcnt_t		st_blocks;
 	struct s_elem	*next;
 }				t_elem;
 

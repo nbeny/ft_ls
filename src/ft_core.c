@@ -83,7 +83,7 @@ int		main(int ac, char **av)
 	opt = ft_init_opt(opt);
 	if (ac == 1)
 		ft_ls(ft_strdup("."), opt);
-	while (av[++i[0]] != NULL && av[i[0]][0] == '-')
+	while (av[++i[0]] != NULL && av[i[0]][0] == '-' && av[i[0]][1] != '-')
 	{
 		ft_check_opt(av[i[0]], opt);
 		i[1] += 1;
@@ -103,7 +103,8 @@ int		main(int ac, char **av)
 		}
 	}
 	ft_free_arg(elem_sa);
-	if (av[i[0] + 1] == NULL && ac != 1)
+	if ((av[i[0] + 1] == NULL && ac != 1) || (av[i[0] + 2] == NULL &&
+		av[i[0] + 1][0] == '-' && av[i[0] + 1][1] == '-'))
 		ft_ls(ft_strdup("."), opt);
 	free(opt);
 	opt = NULL;

@@ -54,8 +54,6 @@ int		ft_getopt(char *str, t_opt *opt, int i)
 		opt->t = 1;
 	else if (str[i] == 'u')
 		opt->u = 1;
-	else if (str[i] == 'G')
-		opt->up_g = 1;
 	else if (str[i] == 'a')
 		opt->a = 1;
 	else if (str[i] == 'A')
