@@ -1,7 +1,7 @@
-#Project Ft_ls
->>>> #####exploration project.
+# Project Ft_ls
+>>>> ##### exploration project.
 
-#####Grade ``(112/100)`` ``(112/125)*``
+##### Grade ``(112/100)`` ``(112/125)*``
 --------  -----------------------
 
 Basic:
